@@ -206,8 +206,9 @@ class Configuration(metaclass=common.SingletonMetaclass):
         try:
             self.save()
         except TypeError as e:
-            print(key, self._data[key])
-            print(e)
+            logging.getLogger("system").error(
+                f"Failed to save configuration after registering parameter {key}."
+            )
 
         # Mark property as being registered
         self._data[key]["is_registered"] = True

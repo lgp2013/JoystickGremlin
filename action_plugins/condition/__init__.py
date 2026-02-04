@@ -47,8 +47,15 @@ class ConditionFunctor(AbstractFunctor):
         if not self._should_execute(value):
             return
 
-        actions = self.functors["true"] if \
-            self._condition_truth_state(value) else self.functors["false"]
+        actions = []
+        try:
+            actions = self.functors["true"] if \
+                self._condition_truth_state(value) else self.functors["false"]
+        except error.GremlinError as e:
+            logging.getLogger("system").error(
+                f"ConditionAction: Error executing condition - {e}"
+            )
+            return
         for action in actions:
             action(event, value, properties)
 

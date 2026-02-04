@@ -501,7 +501,7 @@ class JoystickCondition(AbstractCondition):
             self.joystick = None
             self.initialize_for_uuid(device_uuid)
 
-        def initialize_for_uuid(self, device_uuid: uuid.UUID):
+        def initialize_for_uuid(self, device_uuid: uuid.UUID) -> None:
             try:
                 self.joystick = Joystick()[device_uuid]
             except error.GremlinError:
@@ -544,6 +544,10 @@ class JoystickCondition(AbstractCondition):
                         f"ConditionAction: Invalid InputType {self.input_type} "
                         "in JoystickCondition."
                     )
+
+            if self.joystick is None:
+                return f"Unknown Joystick - {input_name}"
+
             if self.device_lookup:
                 input_name = self.device_lookup.input_name(input_name)
             return f"{self.joystick.name} - {input_name}"

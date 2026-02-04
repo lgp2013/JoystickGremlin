@@ -562,7 +562,7 @@ class CubicBezierSpline(AbstractCurve):
         low = self._lookup[index][interval[0]][1]
         high = self._lookup[index][interval[1]][1]
 
-        # User generic clamp to avoid function call overhead in this call which
+        # Use generic clamp to avoid function call overhead in this call which
         # is time sensitive.
         return util.clamp(
             low.y + (x - low.x) * ((high.y - low.y) / (high.x - low.x)),

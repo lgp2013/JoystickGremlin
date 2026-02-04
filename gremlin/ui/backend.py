@@ -447,7 +447,7 @@ class Backend(QtCore.QObject):
             )
             return InputItemModel(item, enumeration_index, self)
         except error.ProfileError as e:
-            print(e)
+            pass
 
     @Slot(result=LogicalDeviceManagementModel)
     def getLogicalDeviceManagementModel(self) -> LogicalDeviceManagementModel:
