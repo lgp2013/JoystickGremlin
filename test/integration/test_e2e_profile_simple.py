@@ -138,9 +138,7 @@ class TestSimpleProfile:
         input_axis_id = 1
         output_axis_id = 3
         calibrated_value = util.with_default_center_calibration(di_input)
-        vjoy_control_device.axis(linear_index=input_axis_id).set_absolute_value(
-            calibrated_value
-        )
+        vjoy_control_device.axis(linear_index=input_axis_id).value = calibrated_value
         with subtests.test("input readback"):
             tester.assert_axis_eventually_equals(
                 vjoy_di_device.device_guid, input_axis_id, di_input
@@ -176,9 +174,7 @@ class TestSimpleProfile:
             (-tester.AXIS_MAX_INT, [21, 11, 1, -9, -19, -29]),
         ]:
             calibrated_value = util.with_default_center_calibration(di_input)
-            vjoy_control_device.axis(linear_index=input_axis_id).set_absolute_value(
-                calibrated_value
-            )
+            vjoy_control_device.axis(linear_index=input_axis_id).value = calibrated_value
             with subtests.test("input readback"):
                 tester.assert_axis_eventually_equals(
                     vjoy_di_device.device_guid, input_axis_id, di_input

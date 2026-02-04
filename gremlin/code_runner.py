@@ -19,8 +19,10 @@ from vjoy.vjoy import VJoyProxy
 from gremlin import (
     audio_player,
     device_helpers,
+    device_initialization,
     error,
     event_handler,
+    input_cache,
     fsm,
     macro,
     mode_manager,
@@ -385,12 +387,6 @@ class CodeRunner:
             # if the child mode does not override the parent's action
             self.event_handler.build_event_lookup(self._profile.modes.mode_list())
 
-            # Set vJoy axis default values
-            for vid, data in settings.vjoy_initial_values.items():
-                vjoy_proxy = VJoyProxy()[vid]
-                for aid, value in data.items():
-                    vjoy_proxy.axis(linear_index=aid).set_absolute_value(value)
-
             # Connect signals
             evt_listener = event_handler.EventListener()
             evt_listener.keyboard_event.connect(
@@ -415,12 +411,7 @@ class CodeRunner:
             self._running = True
 
             sendinput.MouseController().start()
-
-            # Refresh physical input states.
-            if Configuration().value(
-                "global", "general", "refresh-axis-on-activation"
-            ):
-                RefreshPhysicalInputs.refresh_axes()
+            self._refresh_axes()
         except ImportError as e:
             signal.display_error(
                 "Unable to launch due to a missing user plugin.",
@@ -459,6 +450,30 @@ class CodeRunner:
         self.event_handler._previous_mode = self._profile.modes.first_mode
         user_script.callback_registry.clear()
         device_helpers.ButtonReleaseActions().reset()
+
+    def _refresh_axes(self) -> None:
+        # Store state of all vJoy axes before we do anything.
+        vjoy_state = {}
+        for vjoy_dev in device_initialization.vjoy_devices():
+            vjoy_state[vjoy_dev.vjoy_id] = {}
+            cache_dev = input_cache.Joystick()[vjoy_dev.device_guid.uuid]
+            for entry in vjoy_dev.axis_map:
+                vjoy_state[vjoy_dev.vjoy_id][entry.axis_index] = \
+                    cache_dev.axis(entry.axis_index).value
+
+        # Refresh physical input states.
+        if Configuration().value(
+            "global", "general", "refresh-axis-on-activation"
+        ):
+            RefreshPhysicalInputs.refresh_axes()
+
+        # Set vJoy axis default values unless the axis changed its value due
+        # to an axis refresh.
+        for vid, data in self._profile.settings.vjoy_initial_values.items():
+            vjoy_proxy = VJoyProxy()[vid]
+            for aid, value in data.items():
+                if value != 0.0 and vjoy_state[vid][aid] == 0.0:
+                    vjoy_proxy.axis(linear_index=aid).value = value
 
     def _setup_user_scripts(self) -> None:
         """Handles loading and configuring of user scripts."""

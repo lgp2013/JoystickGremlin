@@ -9,14 +9,31 @@ import enum
 import logging
 import threading
 import time
-from typing import Any, Dict, List, Optional, Tuple
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+)
 import os
 
-from vjoy.vjoy_interface import VJoyState, VJoyInterface
+from vjoy.vjoy_interface import (
+    VJoyState,
+    VJoyInterface,
+)
 
-from gremlin.error import VJoyConcurrencyError, VJoyError
-from gremlin.types import AxisNames, HatDirection
-import gremlin.spline
+from gremlin.common import SingletonMetaclass
+from gremlin.error import (
+    VJoyConcurrencyError,
+    VJoyError,
+)
+from gremlin.types import (
+    AxisNames,
+    HatDirection,
+    InputType,
+)
+from gremlin.util import clamp
 
 
 def _error_string(vid: int, iid: int, value: Any) -> str:
@@ -145,6 +162,50 @@ def hat_configuration_valid(vjoy_id: int) -> bool:
     return continuous_count >= discrete_count
 
 
+
+class VJoyStateCache(metaclass=SingletonMetaclass):
+
+    """Permanent storage cache of vJoy state across vJoy device acquisitions."""
+
+    def __init__(self) -> None:
+        self._cache = {}
+
+    def get_axis(self, vjoy_id: int, index: int) -> float:
+        self._init_vjoy_if_needed(vjoy_id)
+        return self._cache[vjoy_id][InputType.JoystickAxis].get(index, 0.0)
+
+    def get_button(self, vjoy_id: int, index: int) -> bool:
+        self._init_vjoy_if_needed(vjoy_id)
+        return self._cache[vjoy_id][InputType.JoystickButton].get(index, False)
+
+    def get_hat(self, vjoy_id: int, index: int) -> HatDirection:
+        self._init_vjoy_if_needed(vjoy_id)
+        return self._cache[vjoy_id][InputType.JoystickHat].get(
+            index, HatDirection.Center
+        )
+
+    def set_axis(self, vjoy_id: int, index: int, value: float) -> None:
+        self._init_vjoy_if_needed(vjoy_id)
+        self._cache[vjoy_id][InputType.JoystickAxis][index] = value
+
+    def set_button(self, vjoy_id: int, index: int, is_pressed: bool) -> None:
+        self._init_vjoy_if_needed(vjoy_id)
+        self._cache[vjoy_id][InputType.JoystickButton][index] = is_pressed
+
+    def set_hat(self, vjoy_id: int, index: int, direction: HatDirection) -> None:
+        self._init_vjoy_if_needed(vjoy_id)
+        self._cache[vjoy_id][InputType.JoystickHat][index] = direction
+
+    def _init_vjoy_if_needed(self, vjoy_id: int) -> None:
+        if vjoy_id not in self._cache:
+            self._cache[vjoy_id] = {
+                InputType.JoystickAxis: {},
+                InputType.JoystickButton: {},
+                InputType.JoystickHat: {}
+            }
+
+
+
 class Axis:
 
     """Represents an analog axis in vJoy, allows setting the value
@@ -161,6 +222,7 @@ class Axis:
         self.vjoy_id = vjoy_dev.vjoy_id
         self.axis_id = axis_id
         self._value = 0.0
+        self._cache = VJoyStateCache()
 
         # Retrieve axis minimum and maximum values
         tmp = ctypes.c_ulong()
@@ -178,53 +240,11 @@ class Axis:
         self._max_value = tmp.value
         self._half_range = (self._max_value - self._min_value) / 2
 
-        self._deadzone_fn = lambda x: deadzone(x, -1.0, -0.0, 0.0, 1.0)
-        self._response_curve_fn = lambda x: x
-
         # If this is not the case our value setter needs to change
         if self._min_value != 0:
             raise VJoyError("vJoy axis minimum value is not 0  - {}".format(
                     _error_string(self.vjoy_id, self.axis_id, self._min_value)
             ))
-
-    def set_response_curve(
-            self,
-            spline_type: str,
-            control_points: List[Tuple[float, float]]
-    ) -> None:
-        """Sets the response curve to use for the axis.
-
-        Args:
-            spline_type: the type of spline to use
-            control_points: the control points defining the spline
-        """
-        if spline_type == "cubic-spline":
-            self._response_curve_fn = gremlin.spline.CubicSpline(control_points)
-        elif spline_type == "cubic-bezier-spline":
-            self._response_curve_fn = \
-                gremlin.spline.CubicBezierSpline(control_points)
-        else:
-            logging.getLogger("system").error("Invalid spline type specified")
-            self._response_curve_fn = lambda x: x
-
-    def set_deadzone(
-            self,
-            low: float,
-            center_low: float,
-            center_high: float,
-            high: float
-    ) -> None:
-        """Sets the deadzone for the axis.
-
-        Args:
-            low: low deadzone limit
-            center_low: lower center deadzone limit
-            center_high: upper center deadzone limit
-            high: high deadzone limit
-        """
-        self._deadzone_fn = lambda x: deadzone(
-            x, low, center_low, center_high, high
-        )
 
     @property
     def value(self) -> float:
@@ -253,45 +273,9 @@ class Axis:
                 " provided value was {:.2f}".format(value)
             )
 
-        # Normalize value to [-1, 1] and apply response curve and deadzone
-        # settings
-        self._value = self._response_curve_fn(
-            self._deadzone_fn(min(1.0, max(-1.0, value)))
-        )
-
-        if not VJoyInterface.SetAxis(
-                # Built-in rounding is "bankers rounding" which we don't want.
-                int(self._half_range + self._half_range * self._value + 0.5),
-                self.vjoy_id,
-                self.axis_id
-        ):
-            raise VJoyError(
-                "Failed setting axis value - {}".format(
-                    _error_string(self.vjoy_id, self.axis_id, self._value)
-                )
-            )
-        self.vjoy_dev.used()
-
-    def set_absolute_value(self, value: float) -> None:
-        """Sets the position of the axis based on a value between [-1, 1].
-
-        In comparison to the value setter this function bypasses the
-        deadzone and response curve settings.
-
-        Args:
-            value: the position of the axis in the range [-1, 1]
-        """
-        # Log an error on invalid data but continue processing by clamping
-        # the values in the next step
-        if 1.0 - abs(value) < -0.001:
-            logging.getLogger("system").warning(
-                "Wrong data type provided, has to be float in [-1, 1],"
-                " provided value was {:.2f}".format(value)
-            )
-
-        # Normalize value to [-1, 1] and apply response curve and deadzone
-        # settings
-        self._value = value
+        # Clamp the value to [-1, 1].
+        self._value = clamp(value, -1.0, 1.0)
+        self._cache.set_axis(self.vjoy_id, self.axis_id, self._value)
 
         if not VJoyInterface.SetAxis(
                 # Built-in rounding is "bankers rounding" which we don't want.
@@ -322,6 +306,7 @@ class Button:
         self.vjoy_id = vjoy_dev.vjoy_id
         self.button_id = button_id
         self._is_pressed = False
+        self._cache = VJoyStateCache()
 
     @property
     def is_pressed(self) -> bool:
@@ -343,6 +328,7 @@ class Button:
         assert(isinstance(is_pressed, bool))
         self.vjoy_dev.ensure_ownership()
         self._is_pressed = is_pressed
+        self._cache.set_button(self.vjoy_id, self.button_id, is_pressed)
         if not VJoyInterface.SetBtn(
                 self._is_pressed,
                 self.vjoy_id,
@@ -394,8 +380,9 @@ class Hat:
         self.vjoy_dev = vjoy_dev
         self.vjoy_id = vjoy_dev.vjoy_id
         self.hat_id = hat_id
-        self._direction = HatDirection.Center
         self.hat_type = hat_type
+        self._direction = HatDirection.Center
+        self._cache = VJoyStateCache()
 
     @property
     def direction(self) -> HatDirection:
@@ -440,6 +427,7 @@ class Hat:
             )
 
         self._direction = direction
+        self._cache.set_hat(self.vjoy_id, self.hat_id, self._direction)
         if not VJoyInterface.SetDiscPov(
                 Hat.to_discrete_direction[direction],
                 self.vjoy_id,
@@ -465,6 +453,7 @@ class Hat:
             )
 
         self._direction = direction
+        self._cache.set_hat(self.vjoy_id, self.hat_id, self._direction)
         if not VJoyInterface.SetContPov(
                 Hat.to_continuous_direction[direction],
                 self.vjoy_id,
@@ -593,7 +582,7 @@ class VJoy:
         Returns:
             number of axes on this device
         """
-        return int(len(self._axis))
+        return len(self._axis)
 
     @property
     def button_count(self) -> int:
@@ -784,28 +773,29 @@ class VJoy:
     def reset(self) -> None:
         """Resets the state of all inputs to their default state."""
         # Obtain the current state of all inputs
-        axis_states = {}
-        button_states = {}
-        hat_states = {}
+        # axis_states = {}
+        # button_states = {}
+        # hat_states = {}
 
-        for i, axis in self._axis.items():
-            axis_states[i] = axis.value
-        for i, button in self._button.items():
-            button_states[i] = button.is_pressed
-        for i, hat in self._hat.items():
-            hat_states[i] = hat.direction
+        # for i, axis in self._axis.items():
+        #     axis_states[i] = axis.value
+        # for i, button in self._button.items():
+        #     button_states[i] = button.is_pressed
+        # for i, hat in self._hat.items():
+        #     hat_states[i] = hat.direction
 
         # Perform reset using default vJoy functionality
         success = VJoyInterface.ResetVJD(self.vjoy_id)
 
         # Restore input states based on what we recorded
-        if success:
+        if success and self.vjoy_id:
+            cache = VJoyStateCache()
             for i in self._axis:
-                self._axis[i].set_absolute_value(axis_states[i])
+                self._axis[i].value = cache.get_axis(self.vjoy_id, i)
             for i in self._button:
-                self._button[i].is_pressed = button_states[i]
+                self._button[i].is_pressed = cache.get_button(self.vjoy_id, i)
             for i in self._hat:
-                self._hat[i].direction = hat_states[i]
+                self._hat[i].direction = cache.get_hat(self.vjoy_id, i)
         else:
             logging.getLogger("system").info(
                 "Could not reset vJoy device, are we using it?"
@@ -881,15 +871,13 @@ class VJoy:
         """
         hats = {}
         # We can't use discrete hats as such their existence is considered
-        # an error
+        # an error.
         if VJoyInterface.GetVJDDiscPovNumber(self.vjoy_id) > 0:
             error_msg = "vJoy is configured incorrectly. \n\n" \
                     "Please ensure hats are configured as 'Continuous' " \
                     "rather then '4 Directions'."
             logging.getLogger("system").error(error_msg)
             raise VJoyError(error_msg)
-        # for hat_id in range(1, VJoyInterface.GetVJDDiscPovNumber(self.vjoy_id)+1):
-        #     hats[hat_id] = Hat(self, hat_id, HatType.Discrete)
         for hat_id in range(1, VJoyInterface.GetVJDContPovNumber(self.vjoy_id)+1):
             hats[hat_id] = Hat(self, hat_id, HatType.Continuous)
         return hats
