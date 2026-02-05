@@ -1209,7 +1209,7 @@ class DeviceAxisSeries(QtCore.QObject):
     def updateSeries(self, series: QtCharts.QLineSeries, identifier: int):
         data = self._state[identifier]["timeSeries"]
 
-        if len(data) == 0:
+        if len(data) < 2:
             series.replace([
                 QtCore.QPointF(0.0, 0.0),
                 QtCore.QPointF(self._window_size, 0.0),
@@ -1225,8 +1225,11 @@ class DeviceAxisSeries(QtCore.QObject):
             return
 
         time_series = []
-        for pt in data:
-            time_series.append(QtCore.QPointF(pt[0] - now, pt[1]))
+        for p0, p1 in zip(data[:-1], data[1:]):
+            time_series.append(QtCore.QPointF(p0[0] - now, p0[1]))
+            time_series.append(QtCore.QPointF(p1[0] - now, p0[1]))
+
+        time_series.append(QtCore.QPointF(data[-1][0] - now, data[-1][1]))
         time_series.append(QtCore.QPointF(0, data[-1][1]))
         series.replace(time_series)
 
