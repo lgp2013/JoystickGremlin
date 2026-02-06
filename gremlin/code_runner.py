@@ -8,6 +8,7 @@ from abc import (
     ABCMeta,
     abstractmethod,
 )
+import logging
 import os
 import sys
 import time
@@ -234,12 +235,18 @@ class CallbackObject:
         the input items physical events. The actions bound to the input item
         in turn will trigger in response to the emitted virtual events.
         """
+        if self._binding.input_item.mode is None:
+            logging.getLogger("system").warning(
+                "Virtual button configured for input item with no mode, ignoring."
+            )
+            return
+
         # Create template virtual event
         virtual_event = event_handler.Event(
             event_type=InputType.VirtualButton,
             identifier=self._virtual_identifier,
             device_guid=dill.UUID_Virtual,
-            mode=mode_manager.ModeManager().current.name,
+            mode=self._binding.input_item.mode,
             is_pressed=False,
             raw_value=False
         )
