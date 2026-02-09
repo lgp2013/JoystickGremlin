@@ -130,7 +130,7 @@ def register_config_options() -> None:
     )
     cfg.register(
         "global", "internal", "last-known-version",
-        PropertyType.String, "0.0.0",
+        PropertyType.String, gremlin.util.get_code_version(),
         "Last known version of Gremlin.", {}
     )
     cfg.register(

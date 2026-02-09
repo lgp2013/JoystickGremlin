@@ -15,6 +15,7 @@ datas = [
     ("gfx", "gfx"),
     ("qml", "qml"),
     ("device_db.json", "."),
+    ("version.json", ".")
 ]
 datas.extend(action_plugins_files)
 binaries = [
