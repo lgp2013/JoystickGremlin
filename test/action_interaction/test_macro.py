@@ -130,8 +130,8 @@ def test_hat_toggle(jgbot: JoystickGremlinBot, profile_dir: Path) -> None:
         expected_value += 0.1
         assert EventSpec(
             InputType.JoystickAxis, OUT_AXIS_1, 0.1) == jgbot.next_event()
-        assert jgbot.axis(OUT_AXIS_1) == pytest.approx(expected_value, abs=0.01)
 
+    assert jgbot.axis(OUT_AXIS_1) == pytest.approx(expected_value, abs=0.01)
     assert jgbot.event_count() == 0
     jgbot.set_hat_direction(IN_HAT_1, HatDirection.South)
     jgbot.set_hat_direction(IN_HAT_1, HatDirection.Center)

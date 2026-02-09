@@ -1060,3 +1060,19 @@ def latest_gremlin_version() -> Optional[str]:
             return json_data.get("version", None)
     except Exception:
         return None
+
+
+def get_code_version() -> str:
+    """Returns the version contained in the code's version.json file.
+
+    Returns:
+        String representation of the code's version.
+    """
+    version_file = resource_path("version.json")
+    if not file_exists_and_is_accessible(version_file):
+        return "0.0.0"
+
+    try:
+        return json.load(open(version_file))["version"]
+    except json.decoder.JSONDecodeError:
+        return "0.0.0"
