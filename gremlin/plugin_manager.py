@@ -108,7 +108,7 @@ class PluginManager(metaclass=SingletonMetaclass):
         self,
         name: str,
         input_type: InputType
-    ) -> AbstractActionData:
+    ) -> AbstractActionData | None:
         """Creates an action instance which is stored in the library.
 
         Args:
@@ -119,12 +119,15 @@ class PluginManager(metaclass=SingletonMetaclass):
             Newly created action instance.
         """
         cls = self.get_class(name)
-        creation_mode = DataCreationMode.Create
-        if ActionProperty.ReuseByDefault in cls.properties:
-            creation_mode = DataCreationMode.Reuse
-        instance = cls.create(creation_mode, input_type)
-        shared_state.current_profile.library.add_action(instance)
-        return instance
+        if not cls.can_create():
+            return None
+        else:
+            creation_mode = DataCreationMode.Create
+            if ActionProperty.ReuseByDefault in cls.properties:
+                creation_mode = DataCreationMode.Reuse
+            instance = cls.create(creation_mode, input_type)
+            shared_state.current_profile.library.add_action(instance)
+            return instance
 
     def _create_type_action_map(self) -> None:
         """Creates a lookup table from input types to available actions."""

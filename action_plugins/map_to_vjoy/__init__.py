@@ -281,7 +281,7 @@ class MapToVjoyData(AbstractActionData):
         super().__init__(behavior_type)
 
         # Select an initially valid vJoy input
-        device = device_initialization.vjoy_devices()[0]
+        device = device_initialization.output_vjoy_devices()[0]
         vjoy_id = device.vjoy_id
         input_id = 1
         if behavior_type == InputType.JoystickAxis:
@@ -298,7 +298,7 @@ class MapToVjoyData(AbstractActionData):
     @classmethod
     @override
     def can_create(cls) -> bool:
-        return len(device_initialization.vjoy_devices()) > 0
+        return len(device_initialization.output_vjoy_devices()) > 0
 
     @override
     def _from_xml(self, node: ElementTree.Element, library: Library) -> None:

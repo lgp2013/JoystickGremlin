@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+import logging
 from typing import Dict, List, Optional, Tuple, TYPE_CHECKING
 
 from PySide6 import QtCore, QtQml
@@ -177,8 +178,14 @@ class ActionModel(QtCore.QObject):
             action_name,
             self._binding_model.behavior_type
         )
-        self._data.insert_action(action, selector)
-        self._binding_model.sync_data()
+        if action:
+            self._data.insert_action(action, selector)
+            self._binding_model.sync_data()
+        else:
+            logging.getLogger("system").error(
+                f"Failed to create action of type {action_name}"
+            )
+
 
     @Slot(int, int, str)
     def dropAction(self, source: int, target: int, method: str) -> None:

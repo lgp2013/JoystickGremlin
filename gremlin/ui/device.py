@@ -896,10 +896,7 @@ class VJoyDevices(QtCore.QObject):
             else:
                 self._current_vjoy_index = 0
                 self._current_input_index = 0
-                if self._input_data:
-                    self._current_input_type = self._input_data[0][0]
-                else:
-                    self._current_input_type = None
+                self._current_input_type = self._valid_types[0]
 
             # Prevent sending change of input indices and thus changing the
             # model if the model hadn't been initialized yet.
