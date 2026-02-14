@@ -449,6 +449,14 @@ class Backend(QtCore.QObject):
         except error.ProfileError as e:
             pass
 
+    @QtCore.Slot()
+    def pauseInputHighlighting(self) -> None:
+        shared_state.set_suspend_input_highlighting(True)
+
+    @QtCore.Slot()
+    def resumeInputHighlighting(self) -> None:
+        shared_state.set_suspend_input_highlighting(False)
+
     @Slot(result=LogicalDeviceManagementModel)
     def getLogicalDeviceManagementModel(self) -> LogicalDeviceManagementModel:
         return LogicalDeviceManagementModel(self)

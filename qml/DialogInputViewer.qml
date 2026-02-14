@@ -31,7 +31,12 @@ Window {
                 child.destroy()
             })
             _deviceData.destroy()
+            backend.resumeInputHighlighting()
         }
+    }
+
+    Component.onCompleted: () => {
+        backend.pauseInputHighlighting()
     }
 
     DeviceListModel {

@@ -30,7 +30,12 @@ Window {
             _axisView.model.destroy()
             _axisView.destroy()
             _deviceData.destroy()
+            backend.resumeInputHighlighting()
         }
+    }
+
+    Component.onCompleted: () => {
+        backend.pauseInputHighlighting()
     }
 
     DeviceListModel {
