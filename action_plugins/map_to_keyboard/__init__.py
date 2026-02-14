@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 class MapToKeyboardFunctor(AbstractFunctor):
 
-    def __init__(self, action: MapToKeyboardData):
+    def __init__(self, action: MapToKeyboardData) -> None:
         super().__init__(action)
 
         self.press = macro.Macro()
@@ -40,7 +40,7 @@ class MapToKeyboardFunctor(AbstractFunctor):
     @override
     def __call__(
             self,
-            event: Event,
+            event: event_handler.Event,
             value: Value,
             properties: list[ActionProperty]=[]
     ) -> None:
@@ -63,7 +63,7 @@ class MapToKeyboardModel(ActionModel):
             action_index: SequenceIndex,
             parent_index: SequenceIndex,
             parent: QtCore.QObject
-    ):
+    ) -> None:
         super().__init__(data, binding_model, action_index, parent_index, parent)
 
     def _qml_path_impl(self) -> str:
@@ -115,18 +115,18 @@ class MapToKeyboardData(AbstractActionData):
     functor = MapToKeyboardFunctor
     model = MapToKeyboardModel
 
-    properties = [
-        ActionProperty.ActivateOnBoth
-    ]
-    input_types = [
+    properties = (
+        ActionProperty.ActivateOnBoth,
+    )
+    input_types = (
         InputType.JoystickButton,
-        InputType.Keyboard
-    ]
+        InputType.Keyboard,
+    )
 
     def __init__(
             self,
             behavior_type: InputType=InputType.JoystickButton
-    ):
+    ) -> None:
         super().__init__(behavior_type)
 
         self.keys = []

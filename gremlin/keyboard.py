@@ -403,7 +403,6 @@ g_name_to_key = {
     # Various odd keys
     "noname": Key("Noname", 0xfc, False, win32con.VK_NONAME),
     "eraseeof": Key("EraseEof", 0xf9, False, win32con.VK_EREOF),
-    "help": Key("Help", 0x2f, False, win32con.VK_HELP),
     "zoom": Key("Zoom", 0xfb, False, win32con.VK_ZOOM),
     # Expanded function keys
     "f13": Key("F13", 0x7c, False, win32con.VK_F13),

@@ -73,6 +73,8 @@ Item {
     }
 
     Button {
+        width: Math.max(implicitWidth, 150)
+
         id: _button
         text: "Record Inputs"
 

@@ -261,7 +261,7 @@ class InputListenerModel(QtCore.QObject):
             self.multipleInputsChanged.emit(self._multiple_inputs)
 
     currentInput = QtCore.Property(
-        str,
+        list,
         fget=_get_current_inputs,
         notify=listeningTerminated
     )
