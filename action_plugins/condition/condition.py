@@ -4,22 +4,47 @@
 
 from __future__ import annotations
 
-from abc import ABCMeta, abstractmethod
-from typing import Any, List, Optional, override, TYPE_CHECKING
+from abc import (
+    ABCMeta,
+    abstractmethod,
+)
+from typing import (
+    Any,
+    List,
+    Optional,
+    override,
+    TYPE_CHECKING,
+)
 import uuid
 from xml.etree import ElementTree
 
-from PySide6 import QtCore, QtQml
-from PySide6.QtCore import Property, Signal, Slot
+from PySide6 import (
+    QtCore,
+    QtQml,
+)
 
 from vjoy.vjoy import VJoyProxy
 
-from gremlin import error, event_handler, util
+from gremlin import (
+    common,
+    error,
+    event_handler,
+    util,
+)
 from gremlin.base_classes import Value
-from gremlin.input_cache import DeviceDatabase, Joystick, Keyboard
+from gremlin.input_cache import (
+    DeviceDatabase,
+    Joystick,
+    Keyboard,
+)
 from gremlin.keyboard import key_from_code
 from gremlin.logical_device import LogicalDevice
-from gremlin.types import ConditionType, HatDirection, InputType, PropertyType
+from gremlin.types import (
+    ConditionType,
+    HatDirection,
+    InputType,
+    PropertyType,
+)
 
 from gremlin.ui.device import InputIdentifier
 
@@ -70,9 +95,9 @@ class AbstractCondition(QtCore.QObject):
 
     """Base class of all individual condition representations."""
 
-    conditionTypeChanged = Signal()
-    comparatorChanged = Signal()
-    statesChanged = Signal(list)
+    conditionTypeChanged = QtCore.Signal()
+    comparatorChanged = QtCore.Signal()
+    statesChanged = QtCore.Signal(list)
 
     def __init__(self, parent: ta.OQO=None) -> None:
         """Creates a new AbstractCondition instance."""
@@ -130,7 +155,7 @@ class AbstractCondition(QtCore.QObject):
         # TODO: Ensure condition type and comparator are compatible.
         return (self._comparator is not None) and (len(self._states) > 0)
 
-    @Property(AbstractComparatorModel, notify=comparatorChanged)
+    @QtCore.Property(AbstractComparatorModel, notify=comparatorChanged)
     def comparator(self) -> AbstractComparatorModel | None:
         """Returns the current comparator instnace.
 
@@ -139,7 +164,7 @@ class AbstractCondition(QtCore.QObject):
         """
         return self._comparator_ui
 
-    @Property(str, notify=conditionTypeChanged)
+    @QtCore.Property(str, notify=conditionTypeChanged)
     def conditionType(self) -> str:
         """Returns the name of the condition type.
 
@@ -148,7 +173,7 @@ class AbstractCondition(QtCore.QObject):
         """
         return ConditionType.to_string(self._condition_type)
 
-    @Property(list, notify=statesChanged)
+    @QtCore.Property(list, notify=statesChanged)
     def states(self) -> List[str]:
         """Returns a human readable textual representation for each state.
 
@@ -269,7 +294,7 @@ class VJoyCondition(AbstractCondition):
 
     """vJoy input state based condition."""
 
-    vjoyConditionChanged = Signal()
+    vjoyConditionChanged = QtCore.Signal()
 
     class State(AbstractState):
 
@@ -374,19 +399,19 @@ class VJoyCondition(AbstractCondition):
             self._create_comparator(self._states[0].input_type)
             self._update_states(self._states)
 
-    vjoyDeviceId = Property(
+    vjoyDeviceId = QtCore.Property(
         int,
         fget=_get_vjoy_device_id,
         fset=_set_vjoy_device_id,
         notify=vjoyConditionChanged
     )
-    vjoyInputId = Property(
+    vjoyInputId = QtCore.Property(
         int,
         fget=_get_vjoy_input_id,
         fset=_set_vjoy_input_id,
         notify=vjoyConditionChanged
     )
-    vjoyInputType = Property(
+    vjoyInputType = QtCore.Property(
         str,
         fget=_get_vjoy_input_type,
         fset=_set_vjoy_input_type,
@@ -451,7 +476,7 @@ class KeyboardCondition(AbstractCondition):
             ))
         return node
 
-    @Slot(list)
+    @QtCore.Slot(list)
     def updateFromUserInput(self, data: List[event_handler.Event]) -> None:
         # Verify the comparator type is still adequate and modify / warn as
         # needed. First determine the correct type and then check if changes
@@ -531,26 +556,18 @@ class JoystickCondition(AbstractCondition):
                     )
 
         def display_name(self) -> str:
-            input_name = ""
-            match self.input_type:
-                case InputType.JoystickAxis:
-                    input_name = f"Axis: {self.input_id}"
-                case InputType.JoystickButton:
-                    input_name = f"Button: {self.input_id}"
-                case InputType.JoystickHat:
-                    input_name = f"Hat: {self.input_id}"
-                case _:
-                    raise error.GremlinError(
-                        f"ConditionAction: Invalid InputType {self.input_type} "
-                        "in JoystickCondition."
-                    )
-
+            input_name = common.input_to_ui_string(
+                self.input_type,
+                self.input_id
+            )
+            if self.device_lookup:
+                input_name = self.device_lookup.input_name(
+                    (self.input_type, self.input_id)
+                )
             if self.joystick is None:
                 return f"Unknown Joystick - {input_name}"
-
-            if self.device_lookup:
-                input_name = self.device_lookup.input_name(input_name)
-            return f"{self.joystick.name} - {input_name}"
+            else:
+                return f"{self.joystick.name} - {input_name}"
 
     def __init__(self, parent: ta.OQO=None) -> None:
         """Creates a new instance."""
@@ -590,7 +607,7 @@ class JoystickCondition(AbstractCondition):
             ))
         return node
 
-    @Slot(list)
+    @QtCore.Slot(list)
     def updateFromUserInput(self, data: List[event_handler.Event]) -> None:
         # Verify the comparator type is still adequate and modify / warn as
         # needed. First determine the correct type and then check if changes
@@ -672,7 +689,7 @@ class LogicalDeviceCondition(AbstractCondition):
 
     """Logical Device input state based condition."""
 
-    logicalInputIdentifierChanged = Signal()
+    logicalInputIdentifierChanged = QtCore.Signal()
 
     class State(AbstractState):
 
@@ -752,7 +769,7 @@ class LogicalDeviceCondition(AbstractCondition):
             self.logicalInputIdentifierChanged.emit()
             self._create_comparator(self._states[0].input_type)
 
-    logicalInputIdentifier = Property(
+    logicalInputIdentifier = QtCore.Property(
         InputIdentifier,
         fget=_get_logical_input_identifier,
         fset=_set_logical_input_identifier,
