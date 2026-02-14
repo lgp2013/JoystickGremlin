@@ -286,7 +286,7 @@ class ConditionData(AbstractActionData):
             LogicalOperator.to_string(self.logical_operator),
             PropertyType.String
         ))
-        for condition in self.conditions:
+        for condition in [cond for cond in self.conditions if cond.is_valid()]:
             node.append(condition.to_xml())
         node.append(util.create_action_ids(
             "true-actions", [action.id for action in self.true_actions]
