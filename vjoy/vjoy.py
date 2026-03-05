@@ -167,12 +167,26 @@ class VJoyStateCache(metaclass=SingletonMetaclass):
 
     """Permanent storage cache of vJoy state across vJoy device acquisitions."""
 
+    axis_lookup = {
+        1: AxisCode.X.value,
+        2: AxisCode.Y.value,
+        3: AxisCode.Z.value,
+        4: AxisCode.RX.value,
+        5: AxisCode.RY.value,
+        6: AxisCode.RZ.value,
+        7: AxisCode.SL0.value,
+        8: AxisCode.SL1.value
+    }
+
     def __init__(self) -> None:
         self._cache = {}
 
     def get_axis(self, vjoy_id: int, index: int) -> float:
         self._init_vjoy_if_needed(vjoy_id)
-        return self._cache[vjoy_id][InputType.JoystickAxis].get(index, 0.0)
+        return self._cache[vjoy_id][InputType.JoystickAxis].get(
+            VJoyStateCache.axis_lookup[index],
+            0.0
+        )
 
     def get_button(self, vjoy_id: int, index: int) -> bool:
         self._init_vjoy_if_needed(vjoy_id)
