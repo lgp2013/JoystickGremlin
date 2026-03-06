@@ -48,12 +48,18 @@ Item {
         spacing: 5
 
         model: device
+
         delegate: InputButton {
             width: _inputList.width - 20
             height: 50
 
             selected: model.index === _inputList.currentIndex
             onClicked: () => { _inputList.currentIndex = model.index }
+        }
+
+        footer: Item {
+            width: ListView.view.width
+            height: 10
         }
 
         Component.onCompleted: () => {

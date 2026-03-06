@@ -30,6 +30,7 @@ Item {
             spacing: 5
 
             model: KeyboardManagerModel {}
+
             delegate: InputButton {
                 width: _inputList.width - 20
                 height: 50
@@ -44,6 +45,11 @@ Item {
 
                     onClicked: () => { _inputList.model.deleteInput(model.index) }
                 }
+            }
+
+            footer: Item {
+                width: ListView.view.width
+                height: 10
             }
 
             onCurrentIndexChanged: () => {

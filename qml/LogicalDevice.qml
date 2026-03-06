@@ -51,8 +51,9 @@ Item {
             spacing: 5
 
             model: LogicalDeviceManagementModel {}
+
             delegate: InputButton {
-                width: _inputList.width - 30
+                width: _inputList.width - 20
                 height: 50
 
                 selected: model.index === _inputList.currentIndex
@@ -81,6 +82,11 @@ Item {
                 }
             }
 
+            footer: Item {
+                width: ListView.view.width
+                height: 10
+            }
+
             onCurrentIndexChanged: () => {
                 inputIndex = currentIndex
                 inputIdentifier = model.inputIdentifier(currentIndex)
@@ -96,15 +102,17 @@ Item {
                 id: _input_type
 
                 Layout.fillWidth: true
+                Layout.leftMargin: 5
 
                 model: ["Axis", "Button", "Hat"]
             }
 
-            IconButton {
+            Button {
                 Layout.preferredHeight: _input_type.height
+                Layout.rightMargin: 5
 
                 text: bsi.icons.add
-                backgroundColor: Universal.chromeMediumColor
+                font.family: "bootstrap-icons"
 
                 onClicked: () => {
                     _inputList.model.createInput(_input_type.currentValue)
