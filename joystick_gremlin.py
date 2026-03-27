@@ -145,7 +145,7 @@ def register_config_options() -> None:
         "Directory containing additional action plugins", {"is_folder": True}, True
     )
     cfg.register(
-        "global", "general", "action-priorities",
+        "action", "general", "action-priorities",
         PropertyType.List, [],
         "Priority order of the actions", {}, True
     )
@@ -219,7 +219,7 @@ def configure_loggers() -> None:
 
 def update_action_priorities() -> None:
     cfg = gremlin.config.Configuration()
-    key = ["global", "general", "action-priorities"]
+    key = ["action", "general", "action-priorities"]
     priorities = []
     if cfg.exists(*key):
         priorities = cfg.value(*key)

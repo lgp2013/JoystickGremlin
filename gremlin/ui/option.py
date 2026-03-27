@@ -292,7 +292,7 @@ class ActionSequenceOrdering(QtCore.QAbstractListModel, BaseMetaConfigOptionWidg
         BaseMetaConfigOptionWidget.__init__(self)
 
         self._config = gremlin.config.Configuration()
-        self._cfg_key = ["global", "general", "action-priorities"]
+        self._cfg_key = ["action", "general", "action-priorities"]
 
     def rowCount(self, parent: ta.ModelIndex = QtCore.QModelIndex()) -> int:
         return len(self._config.value(*self._cfg_key))
@@ -589,7 +589,7 @@ class MetaConfigOption(metaclass=SingletonMetaclass):
 
 
 MetaConfigOption().register(
-    "global", "general", "action-list",
+    "action", "general", "action-list",
     "Reorder the order in which actions appear in the drop down menu as desired "
     "by dragging and dropping them in the list. Actions that are not desired "
     "can be turned off via the switch next to each action.",
