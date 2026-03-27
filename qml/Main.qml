@@ -469,23 +469,13 @@ ApplicationWindow {
                     text: "\uF285"
                     font.pixelSize: 14
 
-                    onClicked: () => {
-                        _deviceList.currentIndex = Math.min(
-                            _deviceList.count - 1,
-                            _deviceList.currentIndex + 1
-                        )
-                    }
+                    onClicked: () => { _deviceList.nextTab() }
                 }
                 IconButton {
                     text: "\uF284"
                     font.pixelSize: 14
 
-                    onClicked: () => {
-                        _deviceList.currentIndex = Math.max(
-                            0,
-                            _deviceList.currentIndex - 1
-                        )
-                    }
+                    onClicked: () => { _deviceList.previousTab() }
                 }
             }
 

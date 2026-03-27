@@ -17,8 +17,14 @@ Item {
     id: _root
 
     property DeviceListModel deviceListModel
-    property alias currentIndex: _deviceList.currentIndex
-    property alias count: _deviceList.count
+
+    function nextTab() {
+        _deviceList.itemAt(_deviceList.currentIndex + 1)?.clicked()
+    }
+
+    function previousTab() {
+        _deviceList.itemAt(_deviceList.currentIndex - 1)?.clicked()
+    }
 
     DeviceTabBar {
         id: _deviceList
