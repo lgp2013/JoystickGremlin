@@ -91,7 +91,7 @@ def joystick_devices_initialization() -> None:
         # for vJoy devices.
         if hash_value in vjoy_lookup:
             raise error.GremlinError(
-                "Indistinguishable vJoy devices present. Joy devices have "
+                "Indistinguishable vJoy devices present. vJoy devices have "
                 "to differ in the number of (at least one of) axes, buttons, "
                 "or hats in order to work properly with Joystick Gremlin."
             )
