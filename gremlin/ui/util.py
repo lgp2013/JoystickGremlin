@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 import threading
 from typing import (
     Any,
@@ -313,3 +314,17 @@ class ProcessListModel(QtCore.QAbstractListModel):
         if role == QtCore.Qt.ItemDataRole.DisplayRole:
             return self._processes[index.row()]
         return ""
+
+
+def to_local_path(path_or_url: str) -> Path:
+    """Returns a Path irrespective of the input path formatting.
+
+    Args:
+        path_or_url: path to a local file as either a string or QUrl
+
+    Returns:
+        Path object representing the local file path
+    """
+    if path_or_url.startswith("file://"):
+        return Path(QtCore.QUrl(path_or_url).toLocalFile())
+    return Path(path_or_url)

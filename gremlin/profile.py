@@ -608,17 +608,17 @@ class Profile:
         self.settings = Settings(self)
         self.modes = ModeHierarchy(self)
         self.scripts = ScriptManager(self)
-        self.fpath: str | Path | None = None
+        self.fpath: Path | None = None
         LogicalDevice().reset()
 
-    def from_xml(self, fpath: str | Path) -> None:
+    def from_xml(self, fpath: Path) -> None:
         """Reads the content of an XML file and initializes the profile.
 
         Args:
             fpath: path to the XML file to parse
         """
         # Parse file into an XML document.
-        tree = ElementTree.parse(fpath)
+        tree = ElementTree.parse(str(fpath))
         root = tree.getroot()
 
         version = int(root.get("version", "0"))
@@ -642,7 +642,7 @@ class Profile:
         for node in root.findall("./inputs/input"):
             self._process_input(node)
 
-    def to_xml(self, fpath: str) -> None:
+    def to_xml(self, fpath: Path) -> None:
         """Writes the profile's content to an XML file.
 
         Args:
@@ -673,7 +673,7 @@ class Profile:
         # Serialize XML document.
         ugly_xml = ElementTree.tostring(root, encoding="utf-8")
         dom_xml = minidom.parseString(ugly_xml)
-        with codecs.open(fpath, "w", "utf-8-sig") as out:
+        with codecs.open(str(fpath), "w", "utf-8-sig") as out:
             out.write(dom_xml.toprettyxml(indent="    "))
 
     def get_input_count(

@@ -24,6 +24,7 @@ from gremlin.logical_device import LogicalDevice
 from gremlin.profile import ScriptManager
 from gremlin.types import InputType
 from gremlin.ui.device import InputIdentifier
+from gremlin.ui.util import to_local_path
 
 if TYPE_CHECKING:
     import gremlin.ui.type_aliases as ta
@@ -462,7 +463,7 @@ class ScriptListModel(QtCore.QAbstractListModel):
     @Slot(str)
     def addScript(self, qml_url: str) -> None:
         self.layoutAboutToBeChanged.emit()
-        self._script_manager.add_script(Path(QtCore.QUrl(qml_url).toLocalFile()))
+        self._script_manager.add_script(to_local_path(qml_url))
         self.layoutChanged.emit()
 
     @Slot(str, str)

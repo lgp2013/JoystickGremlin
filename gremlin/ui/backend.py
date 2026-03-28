@@ -49,6 +49,7 @@ from gremlin.signal import (
 from gremlin.ui.device import InputIdentifier
 from gremlin.ui.profile import InputItemModel
 from gremlin.ui.script import ScriptListModel
+from gremlin.ui.util import to_local_path
 
 
 if TYPE_CHECKING:
@@ -526,10 +527,10 @@ class Backend(QtCore.QObject):
         Args:
             qml_url: QML url to the path to store the current profile in
         """
-        path = QtCore.QUrl(qml_url).toLocalFile()
+        path = to_local_path(qml_url)
         self.profile.fpath = path
         self.profile.to_xml(self.profile.fpath)
-        self.config.set("global", "internal", "last-profile", path)
+        self.config.set("global", "internal", "last-profile", str(path))
         self.windowTitleChanged.emit()
 
     @Slot(result=str)
@@ -543,15 +544,15 @@ class Backend(QtCore.QObject):
         return "" if path is None else str(path)
 
     @Slot(str)
-    def loadProfile(self, qml_url: str) -> None:
+    def loadProfile(self, fpath: str) -> None:
         """Loads a profile from the specified path.
 
         Args:
-            qml_url: QML url to the profile file to load
+            fpath: File path to the profile file to load
         """
-        path = QtCore.QUrl(qml_url).toLocalFile()
-        self._load_profile(path)
-        self.config.set("global", "internal", "last-profile", path)
+        local_path = to_local_path(fpath)
+        self._load_profile(str(local_path))
+        self.config.set("global", "internal", "last-profile", str(local_path))
         self.profileChanged.emit()
         signal.reloadCurrentInputItem.emit()
 
