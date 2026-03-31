@@ -370,7 +370,9 @@ class JoystickGremlinApp(QtWidgets.QApplication):
         self.setWindowIcon(
             QtGui.QIcon(gremlin.util.resource_path("gfx/icon.png"))
         )
-        self.setApplicationDisplayName("Joystick Gremlin")
+        self.setApplicationDisplayName(
+            f"Joystick Gremlin {gremlin.util.get_code_release()}"
+        )
         self.setOrganizationName("H2IK")
         self.setOrganizationDomain(
             "https://whitemagic.github.io/JoystickGremlin/"
