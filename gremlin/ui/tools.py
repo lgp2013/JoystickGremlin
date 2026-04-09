@@ -75,6 +75,26 @@ class Tools(QtCore.QObject):
         signal.signal.reloadCurrentInputItem.emit()
         return feedback_string
 
+    @QtCore.Slot(str, dict, int, bool, result=str)
+    def createXbox360Mappings(
+        self,
+        mode: str,
+        physical_devices: Dict[str, bool],
+        controller_id: int,
+        overwrite: bool
+    ) -> str:
+        mapper = auto_mapper.Xbox360AutoMapper(shared_state.current_profile)
+        feedback_string = mapper.generate_mappings(
+            [
+                dill.GUID.from_str(guid)
+                for (guid, chosen) in physical_devices.items() if chosen
+            ],
+            auto_mapper.XboxAutoMapperOptions(mode, controller_id, overwrite),
+        )
+        signal.signal.profileChanged.emit()
+        signal.signal.reloadCurrentInputItem.emit()
+        return feedback_string
+
     @QtCore.Slot(str, str, result=str)
     def swapDevices(self, source_uuid_str: str, target_uuid_str: str) -> str:
         """

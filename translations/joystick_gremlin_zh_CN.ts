@@ -585,4 +585,44 @@ Repeat vJoy: Cycles through vJoy inputs, if needed to map all physical inputs.</
         <message><source>D-Pad Right</source><translation>方向键右</translation></message>
         <message><source>D-Pad</source><translation>方向键</translation></message>
     </context>
+    <context>
+        <name>Xbox360LayoutSelector</name>
+        <message><source>Click the D-Pad area to bind this hat input.</source><translation>点击方向键区域，把这个 Hat 输入绑定到 Xbox 方向键。</translation></message>
+        <message><source>Click a control on the gamepad diagram to choose the Xbox target.</source><translation>点击手柄示意图上的控件，选择要映射的 Xbox 目标。</translation></message>
+    </context>
+    <context>
+        <name>DialogAutoMapper</name>
+        <message><source>Target Type</source><translation>目标类型</translation></message>
+        <message><source>Xbox 360</source><translation>Xbox 360</translation></message>
+        <message><source>Xbox 360 Controller</source><translation>Xbox 360 手柄编号</translation></message>
+        <message><source>Create Xbox 360 mappings</source><translation>创建 Xbox 360 映射</translation></message>
+        <message><source>Select devices, choose the Xbox controller number, and then click the button.</source><translation>选择设备，指定 Xbox 手柄编号，然后点击按钮。</translation></message>
+        <message><source>Standard Layout</source><translation>标准布局</translation></message>
+        <message><source>Wizard Rules</source><translation>向导规则</translation></message>
+        <message><source>The wizard maps the first six free physical axes to LX, LY, RX, RY, LT and RT. It then maps free buttons to A, B, X, Y, LB, RB, Back, Start, LS, RS and Guide. If a hat exists, the first hat becomes the Xbox D-Pad. Extra inputs beyond the standard Xbox layout are skipped and reported.</source><translation>向导会把前六个空闲物理轴依次映射到 LX、LY、RX、RY、LT、RT；然后把空闲按钮依次映射到 A、B、X、Y、LB、RB、Back、Start、LS、RS 和 Guide；如果存在 Hat，则第一个 Hat 会映射为 Xbox 方向键。超出标准 Xbox 布局的额外输入会被跳过，并在结果里说明。</translation></message>
+        <message><source>- Select mode to create bindings in.
+- Select source physical devices.
+- Choose the target Xbox 360 controller number.
+- Click "Create Xbox 360 mappings".
+
+Xbox mapping order:
+Axes -&gt; LX, LY, RX, RY, LT, RT
+Buttons -&gt; A, B, X, Y, LB, RB, Back, Start, LS, RS, Guide
+First hat -&gt; D-Pad
+Extra inputs beyond the standard layout are skipped.</source><translation>- 选择要创建绑定的模式。
+- 选择源物理设备。
+- 选择目标 Xbox 360 手柄编号。
+- 点击“创建 Xbox 360 映射”。
+
+Xbox 映射顺序：
+轴 -&gt; LX、LY、RX、RY、LT、RT
+按钮 -&gt; A、B、X、Y、LB、RB、Back、Start、LS、RS、Guide
+第一个 Hat -&gt; 方向键
+超出标准布局的额外输入会被跳过。</translation></message>
+    </context>
+    <context>
+        <name>AutoMapper</name>
+        <message><source>Created {created} mappings, retained {retained} previous bindings.</source><translation>已创建 {created} 个映射，保留了 {retained} 个原有绑定。</translation></message>
+        <message><source>Created {created} Xbox 360 mappings for controller {controller}, retained {retained} previous bindings, skipped {skipped} inputs beyond the standard layout.</source><translation>已为 Xbox 360 手柄 {controller} 创建 {created} 个映射，保留了 {retained} 个原有绑定，另外有 {skipped} 个超出标准布局的输入被跳过。</translation></message>
+    </context>
 </TS>

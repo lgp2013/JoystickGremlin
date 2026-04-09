@@ -15,67 +15,75 @@ Item {
 
     property MapToXbox360Model action
 
-    implicitHeight: _content.height
+    implicitHeight: _content.implicitHeight
 
-    RowLayout {
+    ColumnLayout {
         id: _content
 
         anchors.left: parent.left
         anchors.right: parent.right
+        spacing: 10
 
-        Label {
-            text: qsTr("Controller")
-            anchors.verticalCenter: parent.verticalCenter
-        }
+        RowLayout {
+            Layout.fillWidth: true
 
-        SpinBox {
-            from: 1
-            to: 4
-            value: _root.action.controllerId
-
-            onValueModified: {
-                _root.action.controllerId = value
-            }
-        }
-
-        Label {
-            text: qsTr("Output")
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
-        ComboBox {
-            id: _targetCombo
-
-            model: _root.action.targetOptions
-            textRole: "text"
-            valueRole: "value"
-            implicitContentWidthPolicy: ComboBox.WidestText
-            enabled: !_root.action.isHatInput
-
-            onActivated: {
-                _root.action.target = currentValue
+            Label {
+                text: qsTr("Controller")
             }
 
-            Component.onCompleted: {
-                currentIndex = indexOfValue(_root.action.target)
+            SpinBox {
+                from: 1
+                to: 4
+                value: _root.action.controllerId
+
+                onValueModified: {
+                    _root.action.controllerId = value
+                }
             }
 
-            Connections {
-                target: _root.action
+            Label {
+                text: qsTr("Output")
+            }
 
-                function onChanged() {
-                    _targetCombo.currentIndex = _targetCombo.indexOfValue(
-                        _root.action.target
-                    )
+            ComboBox {
+                id: _targetCombo
+
+                Layout.fillWidth: true
+                model: _root.action.targetOptions
+                textRole: "text"
+                valueRole: "value"
+                implicitContentWidthPolicy: ComboBox.WidestText
+
+                onActivated: {
+                    _root.action.target = currentValue
+                }
+
+                Component.onCompleted: {
+                    currentIndex = indexOfValue(_root.action.target)
+                }
+
+                Connections {
+                    target: _root.action
+
+                    function onChanged() {
+                        _targetCombo.currentIndex = _targetCombo.indexOfValue(
+                            _root.action.target
+                        )
+                    }
                 }
             }
         }
 
-        Label {
-            visible: _root.action.isHatInput
-            text: qsTr("Hat inputs map to the Xbox D-Pad.")
+        Xbox360LayoutSelector {
             Layout.fillWidth: true
-            wrapMode: Text.Wrap
+            Layout.preferredHeight: implicitHeight
+            targetModel: _root.action.targetOptions
+            currentValue: _root.action.target
+            hatOnly: _root.action.isHatInput
+
+            onTargetSelected: (value) => {
+                _root.action.target = value
+            }
         }
     }
 }
