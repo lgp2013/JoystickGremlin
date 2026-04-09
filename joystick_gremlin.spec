@@ -1,6 +1,9 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 import os
+from pathlib import Path
+
+import vgamepad
 
 # Properly enumerate all files required for the action_plugins and
 # container_plugins system.
@@ -23,6 +26,18 @@ binaries = [
     ("vjoy/vJoyInterface.dll", "."),
     ("dill/dill.dll", "."),
 ]
+
+vgamepad_root = Path(vgamepad.__file__).resolve().parent
+binaries.extend([
+    (
+        str(vgamepad_root / "win" / "vigem" / "client" / "x64" / "ViGEmClient.dll"),
+        "vgamepad/win/vigem/client/x64"
+    ),
+    (
+        str(vgamepad_root / "win" / "vigem" / "client" / "x86" / "ViGEmClient.dll"),
+        "vgamepad/win/vigem/client/x86"
+    ),
+])
 
 # List all action plugin code files by their import name as pyinstaller
 # doesn't pick them all up automatically.
