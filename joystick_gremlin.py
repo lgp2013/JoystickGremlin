@@ -52,6 +52,7 @@ import gremlin.mode_manager
 import gremlin.plugin_manager
 import gremlin.types
 import gremlin.signal
+import gremlin.xbox_output
 
 import gremlin.ui.action_image_generator
 import gremlin.ui.backend
@@ -109,6 +110,7 @@ def shutdown_cleanup() -> None:
 
     # Relinquish control over all VJoy devices used.
     vjoy.vjoy.VJoyProxy.reset()
+    gremlin.xbox_output.XboxOutputManager().reset()
 
     gremlin.audio_player.AudioPlayer().stop()
 
@@ -228,7 +230,12 @@ def update_action_priorities() -> None:
 
     # Obtain the list of currently available plugins with an alphabetical
     # order for all but the most important actions.
-    priority_actions = ["Map to vJoy", "Macro", "Response Curve"]
+    priority_actions = [
+        "Map to vJoy",
+        "Map to Xbox 360",
+        "Macro",
+        "Response Curve"
+    ]
     plugin_names = [
         p.name for p in
         gremlin.plugin_manager.PluginManager().repository.values()

@@ -43,6 +43,7 @@ hidden_imports = [
     "action_plugins.map_to_keyboard",
     "action_plugins.map_to_logical_device",
     "action_plugins.map_to_mouse",
+    "action_plugins.map_to_xbox360",
     "action_plugins.map_to_vjoy",
     "action_plugins.merge_axis",
     "action_plugins.pause_resume",
@@ -65,6 +66,7 @@ hidden_imports = [
     "gremlin.ui.type_aliases",
     "gremlin.ui.util",
     "miniaudio",
+    "vgamepad",
     "_cffi_backend",
 ]
 

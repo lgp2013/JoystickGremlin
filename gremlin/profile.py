@@ -799,10 +799,10 @@ class Profile:
             tmp_path = os.path.join(os.getenv("temp"), "gremlin.xml")
             self.to_xml(tmp_path)
             current_sha = hashlib.sha256(
-                open(tmp_path).read().encode("utf-8")
+                open(tmp_path, "rb").read()
             ).hexdigest()
             profile_sha = hashlib.sha256(
-                open(self.fpath).read().encode("utf-8")
+                open(self.fpath, "rb").read()
             ).hexdigest()
 
             return current_sha != profile_sha

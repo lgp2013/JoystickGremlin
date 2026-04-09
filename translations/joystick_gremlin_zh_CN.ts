@@ -240,6 +240,12 @@ Repeat vJoy: Cycles through vJoy inputs, if needed to map all physical inputs.</
         <message><source>Invert activation</source><translation>反转激活</translation></message>
     </context>
     <context>
+        <name>MapToXbox360Action</name>
+        <message><source>Controller</source><translation>手柄编号</translation></message>
+        <message><source>Output</source><translation>输出目标</translation></message>
+        <message><source>Hat inputs map to the Xbox D-Pad.</source><translation>Hat 输入会映射到 Xbox 方向键。</translation></message>
+    </context>
+    <context>
         <name>MapToMouseAction</name>
         <message><source>&lt;B&gt;Mode&lt;/B&gt;</source><translation>&lt;B&gt;模式&lt;/B&gt;</translation></message>
         <message><source>Button</source><translation>按钮</translation></message>
@@ -549,5 +555,34 @@ Repeat vJoy: Cycles through vJoy inputs, if needed to map all physical inputs.</
         <name>OptionActionSequenceOrdering</name>
         <message><source>On</source><translation>开</translation></message>
         <message><source>Off</source><translation>关</translation></message>
+    </context>
+    <context>
+        <name>ActionNames</name>
+        <message><source>Map to Xbox 360</source><translation>映射到 Xbox 360</translation></message>
+    </context>
+    <context>
+        <name>MapToXbox360Targets</name>
+        <message><source>Left Stick X</source><translation>左摇杆 X</translation></message>
+        <message><source>Left Stick Y</source><translation>左摇杆 Y</translation></message>
+        <message><source>Right Stick X</source><translation>右摇杆 X</translation></message>
+        <message><source>Right Stick Y</source><translation>右摇杆 Y</translation></message>
+        <message><source>Left Trigger</source><translation>左扳机</translation></message>
+        <message><source>Right Trigger</source><translation>右扳机</translation></message>
+        <message><source>A Button</source><translation>A 键</translation></message>
+        <message><source>B Button</source><translation>B 键</translation></message>
+        <message><source>X Button</source><translation>X 键</translation></message>
+        <message><source>Y Button</source><translation>Y 键</translation></message>
+        <message><source>Left Bumper</source><translation>左肩键</translation></message>
+        <message><source>Right Bumper</source><translation>右肩键</translation></message>
+        <message><source>Back</source><translation>返回</translation></message>
+        <message><source>Start</source><translation>开始</translation></message>
+        <message><source>Guide</source><translation>Xbox 键</translation></message>
+        <message><source>Left Stick Click</source><translation>左摇杆按下</translation></message>
+        <message><source>Right Stick Click</source><translation>右摇杆按下</translation></message>
+        <message><source>D-Pad Up</source><translation>方向键上</translation></message>
+        <message><source>D-Pad Down</source><translation>方向键下</translation></message>
+        <message><source>D-Pad Left</source><translation>方向键左</translation></message>
+        <message><source>D-Pad Right</source><translation>方向键右</translation></message>
+        <message><source>D-Pad</source><translation>方向键</translation></message>
     </context>
 </TS>
