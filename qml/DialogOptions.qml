@@ -18,7 +18,7 @@ Window {
     Universal.theme: Style.theme
     color: Style.background
 
-    title: "Options"
+    title: qsTr("Options")
 
     onClosing: () => {
         backend.emitConfigChanged()

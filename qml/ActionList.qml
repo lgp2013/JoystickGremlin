@@ -20,7 +20,7 @@ Item {
         anchors.fill: parent
 
         JGText {
-            text: "Action"
+            text: qsTr("Action")
             width: 300
         }
         ComboBox {
@@ -28,7 +28,7 @@ Item {
             model: backend.action_list
         }
         Button {
-            text: "Add"
+            text: qsTr("Add")
             font.pointSize: 10
         }
     }

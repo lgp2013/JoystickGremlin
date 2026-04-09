@@ -19,7 +19,7 @@ Window {
     color: Style.background
     Universal.theme: Style.theme
 
-    title: "Swap Devices"
+    title: qsTr("Swap Devices")
 
     DeviceListModel {
         id: _physicalDevices
@@ -46,7 +46,7 @@ Window {
             Label {
                 Layout.preferredWidth: 200
 
-                text: "From profile device"
+                text: qsTr("From profile device")
                 font.bold: true
             }
 
@@ -66,7 +66,7 @@ Window {
             Label {
                 Layout.preferredWidth: 200
 
-                text: "To connected device"
+                text: qsTr("To connected device")
                 font.bold: true
             }
 
@@ -95,7 +95,7 @@ Window {
             Layout.topMargin: 10
 
             Button {
-                text: "Swap Bindings"
+                text: qsTr("Swap Bindings")
                 onClicked: () => {
                     _statusMessage.text = _tools.swapDevices(
                         _profileDeviceSelection.currentValue,
@@ -110,7 +110,7 @@ Window {
                 Layout.fillWidth: true
                 Layout.leftMargin: 10
 
-                text: "Select devices, then click the button."
+                text: qsTr("Select devices, then click the button.")
             }
         }
     }

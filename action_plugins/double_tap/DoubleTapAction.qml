@@ -33,7 +33,7 @@ Item {
             Label {
                 id: _label
 
-                text: "Double-tap threshold (sec)"
+                text: qsTr("Double-tap threshold (sec)")
             }
             FloatSpinBox {
                 minValue: 0
@@ -49,10 +49,10 @@ Item {
             LayoutHorizontalSpacer {}
 
             Label {
-                text: "Single/Double tap:"
+                text: qsTr("Single/Double tap:")
             }
             RadioButton {
-                text: "exclusive"
+                text: qsTr("exclusive")
                 checked: _root.action.activateOn == "exclusive"
 
                 onClicked: {
@@ -60,7 +60,7 @@ Item {
                 }
             }
             RadioButton {
-                text: "combined"
+                text: qsTr("combined")
                 checked: _root.action.activateOn == "combined"
 
                 onClicked: {
@@ -74,7 +74,7 @@ Item {
         // +-------------------------------------------------------------------
         RowLayout {
             Label {
-                text: "Single Tap"
+                text: qsTr("Single Tap")
             }
 
             Rectangle {
@@ -111,7 +111,7 @@ Item {
         // +-------------------------------------------------------------------
         RowLayout {
             Label {
-                text: "Double Tap"
+                text: qsTr("Double Tap")
             }
 
             Rectangle {

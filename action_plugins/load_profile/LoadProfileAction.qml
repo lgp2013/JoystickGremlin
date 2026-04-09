@@ -26,7 +26,7 @@ Item {
         Label {
             Layout.preferredWidth: 150
 
-            text: "Profile filename"
+            text: qsTr("Profile filename")
         }
 
         JGTextField {
@@ -34,7 +34,7 @@ Item {
 
             Layout.fillWidth: true
 
-            placeholderText: null !== action ? null : "Enter a profile filename"
+            placeholderText: null !== action ? null : qsTr("Enter a profile filename")
             text: action.profile_filename
             selectByMouse: true
 
@@ -42,15 +42,15 @@ Item {
         }
 
         Button {
-            text: "Select File"
+            text: qsTr("Select File")
             onClicked: () => { _fileDialog.open() }
         }
    }
 
    FileDialog {
         id: _fileDialog
-        nameFilters: ["Profile files (*.xml)"]
-        title: "Select a File"
+        nameFilters: [qsTr("Profile files (*.xml)")]
+        title: qsTr("Select a File")
         onAccepted: () =>{
             _profileFilename.text = selectedFile.toString().substring("file:///".length)
         }

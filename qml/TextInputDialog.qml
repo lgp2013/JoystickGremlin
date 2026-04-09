@@ -24,7 +24,7 @@ Window {
 
     onTextChanged: () =>  { _input.focus = true }
 
-    title: "Text Input Field"
+    title: qsTr("Text Input Field")
 
     RowLayout {
         anchors.fill: parent
@@ -49,7 +49,7 @@ Window {
 
             Layout.rightMargin: 10
 
-            text: "Ok"
+            text: qsTr("Ok")
 
             onClicked: () => { _root.accepted(_input.text) }
         }

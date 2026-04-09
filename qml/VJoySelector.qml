@@ -77,7 +77,7 @@ Item {
         Label {
             visible: !_vjoy.hasValidVJoyDevices
 
-            text: "No vJoy devices available."
+            text: qsTr("No vJoy devices available.")
             color: Style.error
         }
     }

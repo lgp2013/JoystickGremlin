@@ -31,7 +31,7 @@ Item {
             Label {
                 Layout.preferredWidth: 150
 
-                text: "<B>Key Combination</B>"
+                text: qsTr("<B>Key Combination</B>")
             }
 
             InputListener {
@@ -41,7 +41,7 @@ Item {
 
                 buttonLabel: Helpers.safeText(
                     _root.action.keyCombination,
-                    "Record Keys"
+                    qsTr("Record Keys")
                 )
             }
         }

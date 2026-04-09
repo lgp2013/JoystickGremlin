@@ -25,7 +25,7 @@ Item {
         Label {
             Layout.preferredWidth: 110
 
-            text: "Audio filename"
+            text: qsTr("Audio filename")
         }
 
         JGTextField {
@@ -34,7 +34,7 @@ Item {
             Layout.fillWidth: true
 
             text: action.soundFilename
-            placeholderText: null !== action ? null : "Input the name of the audio file to play."
+            placeholderText: null !== action ? null : qsTr("Input the name of the audio file to play.")
 
             selectByMouse: true
 
@@ -42,7 +42,7 @@ Item {
         }
 
         Button {
-            text: "Select File"
+            text: qsTr("Select File")
 
             onClicked: () => { _fileDialog.open() }
         }
@@ -50,7 +50,7 @@ Item {
         Label {
             Layout.preferredWidth: 50
 
-            text: "Volume"
+            text: qsTr("Volume")
         }
 
         JGSpinBox {
@@ -67,8 +67,8 @@ Item {
    FileDialog {
         id: _fileDialog
 
-        nameFilters: ["Audio files (*.wav *.mp3 *.ogg)"]
-        title: "Select a File"
+        nameFilters: [qsTr("Audio files (*.wav *.mp3 *.ogg)")]
+        title: qsTr("Select a File")
 
         onAccepted: () => {
             _soundFilename.text = selectedFile.toString().substring("file:///".length)

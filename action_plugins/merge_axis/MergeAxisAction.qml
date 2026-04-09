@@ -41,7 +41,7 @@ Item {
         modal: true
         focus: true
 
-        title: "Rename action"
+        title: qsTr("Rename action")
 
         Row {
             anchors.fill: parent
@@ -53,7 +53,7 @@ Item {
                 focus: true
 
                 text: action.label
-                placeholderText: "Action label"
+                placeholderText: qsTr("Action label")
 
                 onAccepted: () => { _dialog.accept() }
             }
@@ -74,7 +74,7 @@ Item {
         // +-------------------------------------------------------------------
         RowLayout {
             Label {
-                text: "Merge axis instance"
+                text: qsTr("Merge axis instance")
             }
             LabelValueComboBox {
                 id: _action_selection
@@ -111,7 +111,7 @@ Item {
 
         RowLayout {
             Label {
-                text: "Merge operation"
+                text: qsTr("Merge operation")
             }
             LabelValueComboBox {
                 id: _operation_selection
@@ -134,7 +134,7 @@ Item {
         RowLayout {
             // First axis
             Label {
-                text: "First axis"
+                text: qsTr("First axis")
                 font.family: "Segoe UI"
                 font.weight: 600
             }
@@ -154,7 +154,7 @@ Item {
 
             // Second axis selection
             Label {
-                text: "Second axis"
+                text: qsTr("Second axis")
                 font.family: "Segoe UI"
                 font.weight: 600
             }
@@ -175,7 +175,7 @@ Item {
         // +-------------------------------------------------------------------
         RowLayout {
             Label {
-                text: "Actions"
+                text: qsTr("Actions")
             }
 
             Rectangle {

@@ -21,12 +21,12 @@ Item {
     FileDialog {
         id: _selectScript
 
-        title: "Please select a file"
+        title: qsTr("Please select a file")
 
-        acceptLabel: "Load"
+        acceptLabel: qsTr("Load")
         defaultSuffix: "py"
         fileMode: FileDialog.OpenFile
-        nameFilters: ["Script files (*.py)"]
+        nameFilters: [qsTr("Script files (*.py)")]
 
         onAccepted: function()
         {
@@ -81,7 +81,7 @@ Item {
                 Layout.preferredHeight: 30
                 Layout.bottomMargin: 10
 
-                text: "Add Script"
+                text: qsTr("Add Script")
 
                 onClicked: () => _selectScript.open()
             }

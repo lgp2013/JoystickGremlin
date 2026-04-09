@@ -20,7 +20,7 @@ Window {
     color: Style.background
     Universal.theme: Style.theme
 
-    title: "Calibration"
+    title: qsTr("Calibration")
 
 
     Connections {
@@ -53,7 +53,7 @@ Window {
 
             Label {
                 Layout.preferredWidth: 150
-                text: "Device to calibrate"
+                text: qsTr("Device to calibrate")
             }
 
             ComboBox {
@@ -115,7 +115,7 @@ Window {
                 Layout.preferredWidth: 75
                 Layout.rightMargin: 5
 
-                text: "Raw"
+                text: qsTr("Raw")
                 horizontalAlignment: Text.AlignRight
             }
 
@@ -128,13 +128,13 @@ Window {
             JGText {
                 Layout.preferredWidth: 100
 
-                text: "With center"
+                text: qsTr("With center")
                 horizontalAlignment: Text.AlignRight
             }
             Switch {
                 Layout.preferredWidth: 100
 
-                text: checked ? "Yes" : "No"
+                text: checked ? qsTr("Yes") : qsTr("No")
                 checked: model.withCenter
                 onToggled: {
                     model.withCenter = checked
@@ -260,7 +260,7 @@ Window {
                     id: _btnCenterCalibration
 
                     Layout.preferredWidth: 150
-                    text: "Calibrate center"
+                    text: qsTr("Calibrate center")
                     visible: model.withCenter
 
                     checkable: true
@@ -276,7 +276,7 @@ Window {
                     id: _btnExtremaCalibration
 
                     Layout.preferredWidth: 150
-                    text: "Calibrate extrema"
+                    text: qsTr("Calibrate extrema")
 
                     checkable: true
                     onToggled: {

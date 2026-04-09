@@ -32,7 +32,7 @@ Item {
             Layout.fillWidth: true
 
             Label {
-                text: "<b>Repeat Mode</b>"
+                text: qsTr("<b>Repeat Mode</b>")
             }
 
             ComboBox {
@@ -48,10 +48,10 @@ Item {
                 onActivated: () => { _root.action.repeatMode = currentValue }
 
                 model: [
-                    {value: "single", text: "Single"},
-                    {value: "count", text: "Count"},
-                    {value: "toggle", text: "Toggle"},
-                    {value: "hold", text: "Hold"},
+                    {value: "single", text: qsTr("Single")},
+                    {value: "count", text: qsTr("Count")},
+                    {value: "toggle", text: qsTr("Toggle")},
+                    {value: "hold", text: qsTr("Hold")},
                 ]
             }
 
@@ -80,7 +80,7 @@ Item {
             LayoutHorizontalSpacer {}
 
             Switch {
-                text: "Exclusive"
+                text: qsTr("Exclusive")
 
                 checked: _root.action.isExclusive
                 onClicked: () => { _root.action.isExclusive = checked }
@@ -116,18 +116,18 @@ Item {
                 valueRole: "value"
 
                 model: [
-                    {value: "joystick", text: "Joystick"},
-                    {value: "key", text: "Keyboard"},
-                    {value: "logical-device", text: "Logical Device"},
-                    {value: "mouse-button", text: "Mouse Button"},
-                    {value: "mouse-motion", text: "Mouse Motion"},
-                    {value: "pause", text: "Pause"},
-                    {value: "vjoy", text: "vJoy"}
+                    {value: "joystick", text: qsTr("Joystick")},
+                    {value: "key", text: qsTr("Keyboard")},
+                    {value: "logical-device", text: qsTr("Logical Device")},
+                    {value: "mouse-button", text: qsTr("Mouse Button")},
+                    {value: "mouse-motion", text: qsTr("Mouse Motion")},
+                    {value: "pause", text: qsTr("Pause")},
+                    {value: "vjoy", text: qsTr("vJoy")}
                 ]
             }
 
             Button {
-                text: "Add Action"
+                text: qsTr("Add Action")
 
                 onClicked: () => {
                     _root.action.addAction(_macroAction.currentValue)
@@ -150,12 +150,12 @@ Item {
 
             DraggableAction {
                 icon: bsi.icons.icon_joystick
-                label: "Joystick"
+                label: qsTr("Joystick")
 
                 actionItem: RowLayout {
                     InputListener {
                         buttonLabel: Helpers.safeText(
-                            modelData.label, "Record Input"
+                            modelData.label, qsTr("Record Input")
                         )
                         callback: (inputs) => {
                             modelData.updateJoystick(inputs)
@@ -193,15 +193,15 @@ Item {
                         valueRole: "value"
 
                         model: [
-                            {value: "center", text: "Center"},
-                            {value: "north", text: "North"},
-                            {value: "north-east", text: "North East"},
-                            {value: "east", text: "East"},
-                            {value: "south-east", text: "South East"},
-                            {value: "south", text: "South"},
-                            {value: "south-west", text: "South West"},
-                            {value: "west", text: "West"},
-                            {value: "north-west", text: "North West"}
+                            {value: "center", text: qsTr("Center")},
+                            {value: "north", text: qsTr("North")},
+                            {value: "north-east", text: qsTr("North East")},
+                            {value: "east", text: qsTr("East")},
+                            {value: "south-east", text: qsTr("South East")},
+                            {value: "south", text: qsTr("South")},
+                            {value: "south-west", text: qsTr("South West")},
+                            {value: "west", text: qsTr("West")},
+                            {value: "north-west", text: qsTr("North West")}
                         ]
 
                         Component.onCompleted: () => {
@@ -224,12 +224,12 @@ Item {
 
             DraggableAction {
                 icon: bsi.icons.icon_keyboard
-                label: "Keyboard"
+                label: qsTr("Keyboard")
 
                 actionItem: RowLayout {
                     InputListener {
                         buttonLabel: Helpers.safeText(
-                            modelData.key, "Record Input"
+                            modelData.key, qsTr("Record Input")
                         )
                         callback: (inputs) => { modelData.updateKey(inputs) }
                         multipleInputs: false
@@ -252,7 +252,7 @@ Item {
 
             DraggableAction {
                 icon: bsi.icons.icon_logical_device
-                label: "Logical device"
+                label: qsTr("Logical device")
 
                 actionItem: RowLayout {
                     LogicalDeviceSelector {
@@ -291,12 +291,15 @@ Item {
                         }
 
                         ComboBox {
-                            model: ["Absolute", "Relative"]
+                            model: [
+                                { value: "absolute", text: qsTr("Absolute") },
+                                { value: "relative", text: qsTr("Relative") }
+                            ]
+                            textRole: "text"
+                            valueRole: "value"
 
                             Component.onCompleted: () => {
-                                currentIndex = find(
-                                    Helpers.capitalize(modelData.axisMode)
-                                )
+                                currentIndex = indexOfValue(modelData.axisMode)
                             }
 
                             onActivated: () => {
@@ -311,15 +314,15 @@ Item {
                         valueRole: "value"
 
                         model: [
-                            {value: "center", text: "Center"},
-                            {value: "north", text: "North"},
-                            {value: "north-east", text: "North East"},
-                            {value: "east", text: "East"},
-                            {value: "south-east", text: "South East"},
-                            {value: "south", text: "South"},
-                            {value: "south-west", text: "South West"},
-                            {value: "west", text: "West"},
-                            {value: "north-west", text: "North West"}
+                            {value: "center", text: qsTr("Center")},
+                            {value: "north", text: qsTr("North")},
+                            {value: "north-east", text: qsTr("North East")},
+                            {value: "east", text: qsTr("East")},
+                            {value: "south-east", text: qsTr("South East")},
+                            {value: "south", text: qsTr("South")},
+                            {value: "south-west", text: qsTr("South West")},
+                            {value: "west", text: qsTr("West")},
+                            {value: "north-west", text: qsTr("North West")}
                         ]
 
                         currentIndex: indexOfValue(modelData.hatDirection)
@@ -344,12 +347,12 @@ Item {
 
             DraggableAction {
                 icon: bsi.icons.icon_mouse
-                label: "Mouse Button"
+                label: qsTr("Mouse Button")
 
                 actionItem: RowLayout {
                     InputListener {
                         buttonLabel: Helpers.safeText(
-                            modelData.button, "Record Input"
+                            modelData.button, qsTr("Record Input")
                         )
                         callback: (inputs) => { modelData.updateButton(inputs) }
                         multipleInputs: false
@@ -374,13 +377,13 @@ Item {
 
             DraggableAction {
                 icon: bsi.icons.icon_mouse
-                label: "Mouse Motion"
+                label: qsTr("Mouse Motion")
 
                 actionItem: RowLayout {
                     Label {
                         Layout.leftMargin: 5
 
-                        text: "X-Axis"
+                        text: qsTr("X-Axis")
                     }
                     JGSpinBox {
                         value: modelData.dx
@@ -389,7 +392,7 @@ Item {
                     }
 
                     Label {
-                        text: "Y-Axis"
+                        text: qsTr("Y-Axis")
 
                         leftPadding: 25
                     }
@@ -410,7 +413,7 @@ Item {
 
             DraggableAction {
                 icon: bsi.icons.icon_pause
-                label: "Pause"
+                label: qsTr("Pause")
 
                 actionItem: RowLayout {
                     FloatSpinBox {
@@ -423,7 +426,7 @@ Item {
                         }
                     }
                     Label {
-                        text: "seconds"
+                        text: qsTr("seconds")
                     }
                     LayoutHorizontalSpacer {}
                 }
@@ -436,7 +439,7 @@ Item {
 
             DraggableAction {
                 icon: bsi.icons.icon_joystick
-                label: "vJoy"
+                label: qsTr("vJoy")
 
                 actionItem: RowLayout {
                     VJoySelector {
@@ -480,12 +483,15 @@ Item {
                         }
 
                         ComboBox {
-                            model: ["Absolute", "Relative"]
+                            model: [
+                                { value: "absolute", text: qsTr("Absolute") },
+                                { value: "relative", text: qsTr("Relative") }
+                            ]
+                            textRole: "text"
+                            valueRole: "value"
 
                             Component.onCompleted: () => {
-                                currentIndex = find(
-                                    Helpers.capitalize(modelData.axisMode)
-                                )
+                                currentIndex = indexOfValue(modelData.axisMode)
                             }
 
                             onActivated: () => {
@@ -500,15 +506,15 @@ Item {
                         valueRole: "value"
 
                         model: [
-                            {value: "center", text: "Center"},
-                            {value: "north", text: "North"},
-                            {value: "north-east", text: "North East"},
-                            {value: "east", text: "East"},
-                            {value: "south-east", text: "South East"},
-                            {value: "south", text: "South"},
-                            {value: "south-west", text: "South West"},
-                            {value: "west", text: "West"},
-                            {value: "north-west", text: "North West"}
+                            {value: "center", text: qsTr("Center")},
+                            {value: "north", text: qsTr("North")},
+                            {value: "north-east", text: qsTr("North East")},
+                            {value: "east", text: qsTr("East")},
+                            {value: "south-east", text: qsTr("South East")},
+                            {value: "south", text: qsTr("South")},
+                            {value: "south-west", text: qsTr("South West")},
+                            {value: "west", text: qsTr("West")},
+                            {value: "north-west", text: qsTr("North West")}
                         ]
 
                         currentIndex: indexOfValue(modelData.hatDirection)

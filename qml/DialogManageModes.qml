@@ -19,7 +19,7 @@ Window {
     color: Style.background
     Universal.theme: Style.theme
 
-    title: "Manage Modes"
+    title: qsTr("Manage Modes")
 
     property ModeHierarchyModel modeHierarchy : ModeHierarchyModel {}
     property ModeListModel modeList : ModeListModel {}
@@ -59,13 +59,13 @@ Window {
         Button {
             Layout.alignment: Qt.AlignHCenter
 
-            text: "Add Mode"
+            text: qsTr("Add Mode")
 
             onClicked: () => {
                 let validNames = modeHierarchy.modeStringList()
 
-                _textInput.title = "Add new mode"
-                _textInput.text = "New mode"
+                _textInput.title = qsTr("Add new mode")
+                _textInput.text = qsTr("New mode")
                 _textInput.validator = function(value)
                 {
                     return !validNames.includes(value)
@@ -105,7 +105,7 @@ Window {
                 onClicked: () => {
                     let validNames = modeHierarchy.modeStringList()
 
-                    _textInput.title = "Rename existing mode"
+                    _textInput.title = qsTr("Rename existing mode")
                     _textInput.text = name
                     _textInput.callback = function(value) {
                         modeHierarchy.renameMode(name, value)

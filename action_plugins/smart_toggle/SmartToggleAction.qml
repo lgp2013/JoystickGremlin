@@ -29,7 +29,7 @@ Item {
 
         RowLayout {
             Label {
-                text: "Toggle delay"
+                text: qsTr("Toggle delay")
             }
             FloatSpinBox {
                 minValue: 0

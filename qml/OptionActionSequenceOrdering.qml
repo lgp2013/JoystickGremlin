@@ -113,7 +113,7 @@ Item {
             CompactSwitch {
                 id: _switch
 
-                text: checked ? "On" : "Off"
+                text: checked ? qsTr("On") : qsTr("Off")
 
                 onToggled: () => { model.visible = checked }
             }

@@ -42,7 +42,7 @@ Item {
             Layout.preferredWidth: active ? implicitWidth : 0
 
             sourceComponent: RowLayout {
-                Label { text: "between" }
+                Label { text: qsTr("between") }
 
                 FloatSpinBox {
                     id: _lower
@@ -57,7 +57,7 @@ Item {
                     }
                 }
 
-                Label { text: "and" }
+                Label { text: qsTr("and") }
 
                 FloatSpinBox {
                     id: _upper

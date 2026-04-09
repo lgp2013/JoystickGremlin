@@ -53,9 +53,9 @@ Item {
 
                 Layout.fillWidth: true
 
-                placeholderText: "Description"
+                placeholderText: qsTr("Description")
                 text: _root.inputBinding.rootAction ?
-                    _root.inputBinding.rootAction.actionLabel : "Description"
+                    _root.inputBinding.rootAction.actionLabel : qsTr("Description")
 
                 onTextEdited: () => {
                     _root.inputBinding.rootAction.actionLabel = text
@@ -117,7 +117,7 @@ Item {
                 Label {
                     Layout.leftMargin: 20
 
-                    text: "Activate between"
+                    text: qsTr("Activate between")
                 }
                 NumericalRangeSlider {
                     from: -1.0
@@ -135,21 +135,26 @@ Item {
                     }
                 }
                 Label {
-                    text: "when entered from"
+                    text: qsTr("when entered from")
                 }
                 ComboBox {
-                    model: ["Anywhere", "Above", "Below"]
+                    model: [
+                        { value: "Anywhere", text: qsTr("Anywhere") },
+                        { value: "Above", text: qsTr("Above") },
+                        { value: "Below", text: qsTr("Below") }
+                    ]
+                    textRole: "text"
+                    valueRole: "value"
 
                     // Select the correct entry.
                     Component.onCompleted: () => {
-                        currentIndex = find(
-                            _root.inputBinding.virtualButton.direction,
-                            Qt.MatchFixedString
+                        currentIndex = indexOfValue(
+                            _root.inputBinding.virtualButton.direction
                         )
                     }
 
                     onActivated: () => {
-                        _root.inputBinding.virtualButton.direction = currentText
+                        _root.inputBinding.virtualButton.direction = currentValue
                     }
                 }
             }
@@ -165,7 +170,7 @@ Item {
                 Label {
                     Layout.leftMargin: 20
 
-                    text: "Activate on"
+                    text: qsTr("Activate on")
                 }
                 HatDirectionSelector {
                     virtualButton: _root.inputBinding.virtualButton

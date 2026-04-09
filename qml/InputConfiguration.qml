@@ -99,7 +99,7 @@ Item {
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                text: "New Action Sequence"
+                text: qsTr("New Action Sequence")
 
                 onClicked: {
                     _root.inputItemModel.newActionSequence()

@@ -21,7 +21,7 @@ Window {
     color: Style.background
     Universal.theme: Style.theme
 
-    title: "Input Viewer"
+    title: qsTr("Input Viewer")
 
     Connections {
         target: _inputViewer
@@ -153,7 +153,7 @@ Window {
                 Layout.leftMargin: _foldButton.width
 
                 Switch {
-                    text: "Axes - Temporal"
+                    text: qsTr("Axes - Temporal")
 
                     onClicked: () => {
                         if(checked) {
@@ -168,7 +168,7 @@ Window {
                     }
                 }
                 Switch {
-                    text: "Axes - Current"
+                    text: qsTr("Axes - Current")
 
                     onClicked: () => {
                         if(checked) {
@@ -183,7 +183,7 @@ Window {
                     }
                 }
                 Switch {
-                    text: "Buttons & Hats"
+                    text: qsTr("Buttons & Hats")
 
                     onClicked: () => {
                         if(checked) {

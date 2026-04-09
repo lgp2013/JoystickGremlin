@@ -35,14 +35,14 @@ Item {
 
                 Layout.preferredWidth: 50
 
-                text: "<B>Mode</B>"
+                text: qsTr("<B>Mode</B>")
             }
 
             // Radio buttons to select the desired mapping mode
             RadioButton {
                 id: _mode_button
 
-                text: "Button"
+                text: qsTr("Button")
                 visible: inputBinding.behavior === "button"
 
                 checked: _root.action.mode === "Button"
@@ -54,7 +54,7 @@ Item {
 
                 Layout.fillWidth: true
 
-                text: "Motion"
+                text: qsTr("Motion")
 
                 checked: _root.action.mode === "Motion"
                 onClicked: () => { _root.action.mode = "Motion" }
@@ -66,7 +66,7 @@ Item {
             visible: _mode_button.checked
 
             Label {
-                text: "Mouse Button"
+                text: qsTr("Mouse Button")
             }
 
             InputListener {
@@ -88,7 +88,7 @@ Item {
             Label {
                 Layout.fillWidth: true
 
-                text: "Minimum speed"
+                text: qsTr("Minimum speed")
             }
 
             JGSpinBox {
@@ -113,7 +113,7 @@ Item {
             Label {
                 Layout.fillWidth: true
 
-                text: "Maximum speed"
+                text: qsTr("Maximum speed")
             }
 
             JGSpinBox {
@@ -131,7 +131,7 @@ Item {
             }
 
             Label {
-                text: "Time to maximum speed"
+                text: qsTr("Time to maximum speed")
             }
 
             FloatSpinBox {
@@ -149,7 +149,7 @@ Item {
             Rectangle {}
 
             Label {
-                text: "Direction"
+                text: qsTr("Direction")
             }
 
             JGSpinBox {
@@ -170,18 +170,18 @@ Item {
 
             RowLayout {
                 Label {
-                    text: "Control motion of"
+                    text: qsTr("Control motion of")
                 }
 
                 RadioButton {
-                    text: "X Axis"
+                    text: qsTr("X Axis")
 
                     checked: _root.action.direction === 90
                     onClicked: () => { _root.action.direction = 90 }
                 }
 
                 RadioButton {
-                    text: "Y Axis"
+                    text: qsTr("Y Axis")
 
                     checked: _root.action.direction === 0
                     onClicked: () => { _root.action.direction = 0 }
@@ -193,7 +193,7 @@ Item {
                 Label {
                     Layout.rightMargin: 10
 
-                    text: "Minimum speed"
+                    text: qsTr("Minimum speed")
                 }
 
                 JGSpinBox {
@@ -212,7 +212,7 @@ Item {
                     Layout.leftMargin: 50
                     Layout.rightMargin: 10
 
-                    text: "Maximum speed"
+                    text: qsTr("Maximum speed")
                 }
 
                 JGSpinBox {
@@ -238,7 +238,7 @@ Item {
             Label {
                 Layout.fillWidth: true
 
-                text: "Minimum speed"
+                text: qsTr("Minimum speed")
             }
 
             JGSpinBox {
@@ -258,7 +258,7 @@ Item {
             Label {
                 Layout.fillWidth: true
 
-                text: "Maximum speed"
+                text: qsTr("Maximum speed")
             }
 
             JGSpinBox {
@@ -276,7 +276,7 @@ Item {
             }
 
             Label {
-                text: "Time to maximum speed"
+                text: qsTr("Time to maximum speed")
             }
 
             FloatSpinBox {

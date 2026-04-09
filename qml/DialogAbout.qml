@@ -22,12 +22,12 @@ Window {
         anchors.fill: parent
 
         DisplayLabel {
-            text: "<b>Joystick Gremlin</b>"
+            text: qsTr("<b>Joystick Gremlin</b>")
             font.pointSize: 36
         }
 
         DisplayLabel {
-            text: "Release " + backend.gremlinVersion
+            text: qsTr("Release ") + backend.gremlinVersion
             font.pointSize: 14
         }
 

@@ -27,7 +27,7 @@ Item {
         anchors.right: parent.right
 
         RadioButton {
-            text: "Pause"
+            text: qsTr("Pause")
 
             checked: _root.action.operation === "Pause"
             onClicked: function() {
@@ -35,7 +35,7 @@ Item {
             }
         }
         RadioButton {
-            text: "Resume"
+            text: qsTr("Resume")
 
             checked: _root.action.operation === "Resume"
             onClicked: function() {
@@ -43,7 +43,7 @@ Item {
             }
         }
         RadioButton {
-            text: "Toggle"
+            text: qsTr("Toggle")
 
             checked: _root.action.operation === "Toggle"
             onClicked: function() {

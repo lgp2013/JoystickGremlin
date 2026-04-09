@@ -41,7 +41,7 @@ Item {
             Layout.fillWidth: true
 
             Label {
-                text: "When "
+                text: qsTr("When ")
             }
             ComboBox {
                 id: _logicalOperatorSelector
@@ -59,13 +59,13 @@ Item {
                 }
             }
             Label {
-                text: "of the following conditions are met"
+                text: qsTr("of the following conditions are met")
             }
 
             LayoutHorizontalSpacer {}
 
             Button {
-                text: "Add Condition"
+                text: qsTr("Add Condition")
 
                 onClicked: () => {
                     _root.action.addCondition(_condition.currentValue)
@@ -97,7 +97,7 @@ Item {
             id: _trueHeader
 
             Label {
-                text: "When the condition is <b>TRUE</b> then"
+                text: qsTr("When the condition is <b>TRUE</b> then")
             }
 
             LayoutHorizontalSpacer {}
@@ -137,7 +137,7 @@ Item {
             id: _falseHeader
 
             Label {
-                text: "When the condition is <b>FALSE</b> then"
+                text: qsTr("When the condition is <b>FALSE</b> then")
             }
 
             LayoutHorizontalSpacer {}
@@ -181,7 +181,7 @@ Item {
             sourceComponent: RowLayout {
                 Label {
                     Layout.preferredWidth: conditionLabelWidth
-                    text: "vJoy Condition"
+                    text: qsTr("vJoy Condition")
                 }
 
                 VJoySelector {
@@ -204,7 +204,7 @@ Item {
                     }
                 }
 
-                Label { text: "<b>True</b> when" }
+                Label { text: qsTr("<b>True</b> when") }
 
                 Comparator {
                     comparator: modelData.comparator
@@ -227,7 +227,7 @@ Item {
                     Label {
                         Layout.preferredWidth: conditionLabelWidth
 
-                        text: "Current Input"
+                        text: qsTr("Current Input")
                     }
 
                     Comparator {
@@ -247,7 +247,7 @@ Item {
                     Label {
                         Layout.preferredWidth: conditionLabelWidth
 
-                        text: "Joystick"
+                        text: qsTr("Joystick")
                     }
 
                     Label {
@@ -280,7 +280,7 @@ Item {
                     Label {
                         Layout.preferredWidth: conditionLabelWidth
 
-                        text: "Keyboard"
+                        text: qsTr("Keyboard")
                     }
 
                     Label {
@@ -311,7 +311,7 @@ Item {
                 conditionItem: RowLayout {
                     Label {
                         Layout.preferredWidth: conditionLabelWidth
-                        text: "Logical Device"
+                        text: qsTr("Logical Device")
                     }
 
                     LogicalDeviceSelector {
@@ -325,7 +325,7 @@ Item {
                         }
                     }
 
-                    Label { text: "<b>True</b> when" }
+                    Label { text: qsTr("<b>True</b> when") }
 
                     Comparator {
                         comparator: modelData.comparator
@@ -343,7 +343,7 @@ Item {
                 conditionItem: RowLayout {
                     Label {
                         Layout.preferredWidth: conditionLabelWidth
-                        text: "vJoy Condition"
+                        text: qsTr("vJoy Condition")
                     }
 
                     VJoySelector {
@@ -366,7 +366,7 @@ Item {
                         }
                     }
 
-                    Label { text: "<b>True</b> when" }
+                    Label { text: qsTr("<b>True</b> when") }
 
                     Comparator {
                         comparator: modelData.comparator

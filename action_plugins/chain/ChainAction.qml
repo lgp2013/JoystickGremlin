@@ -27,7 +27,7 @@ Item {
             Label {
                 id: _label
 
-                text: "Timeout (sec)"
+                text: qsTr("Timeout (sec)")
             }
 
             FloatSpinBox {
@@ -44,7 +44,7 @@ Item {
             LayoutHorizontalSpacer {}
 
             Button {
-                text: "Add Chain Sequence"
+                text: qsTr("Add Chain Sequence")
 
                 onPressed: function() {
                     _root.action.addSequence()
@@ -66,7 +66,7 @@ Item {
             Layout.fillWidth: true
 
             Label {
-                text: "Sequence " + index
+                text: qsTr("Sequence ") + index
             }
 
             LayoutHorizontalSpacer {}

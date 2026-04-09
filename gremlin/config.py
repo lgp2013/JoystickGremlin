@@ -87,6 +87,7 @@ class Configuration(metaclass=common.SingletonMetaclass):
                     self._data[(section, group, name)] = {
                         "value": value,
                         "data_type": data_type,
+                        "description": entry.get("description", ""),
                         "properties": entry["properties"],
                         "expose": entry["expose"]
                     }
@@ -118,6 +119,7 @@ class Configuration(metaclass=common.SingletonMetaclass):
             json_data[section][group][name] = {
                 "value": value,
                 "data_type": PropertyType.to_string(entry["data_type"]),
+                "description": entry.get("description", ""),
                 "properties": entry["properties"],
                 "expose": entry["expose"]
             }
@@ -476,6 +478,8 @@ class Configuration(metaclass=common.SingletonMetaclass):
         if key not in self._data:
             raise error.GremlinError(f"No parameter with key {key} exists.")
 
+        if entry == "description":
+            return self._data[key].get("description", "")
         return self._data[key][entry]
 
     def _validate(self, section: str, group: str, name: str) -> None:

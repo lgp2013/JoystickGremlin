@@ -14,6 +14,8 @@ from typing import (
     Self,
 )
 
+from PySide6 import QtCore
+
 from action_plugins import (
     map_to_vjoy,
     root,
@@ -72,6 +74,10 @@ class AutoMapper:
         self._created_mappings: list[map_to_vjoy.MapToVjoyData] = []
         self._num_retained_bindings = 0
 
+    @staticmethod
+    def _tr(text: str) -> str:
+        return QtCore.QCoreApplication.translate("AutoMapper", text)
+
     @classmethod
     def from_current_profile(cls) -> Self:
         return cls(shared_state.current_profile)
@@ -95,9 +101,9 @@ class AutoMapper:
             A string report for the user summarizing new mappings.
         """
         if not input_devices_guids:
-            return "No input devices selected"
+            return self._tr("No input devices selected")
         if not output_vjoy_ids:
-            return "No vJoy devices selected"
+            return self._tr("No vJoy devices selected")
         input_devices = [
             dev
             for dev in device_initialization.physical_devices()

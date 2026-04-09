@@ -20,8 +20,8 @@ Item {
 
         property var associatedField
 
-        nameFilters: ["Profile files (*.xml)"]
-        title: "Select a File"
+        nameFilters: [qsTr("Profile files (*.xml)")]
+        title: qsTr("Select a File")
 
         onAccepted: () => {
             associatedField.text =
@@ -34,8 +34,8 @@ Item {
 
         property var associatedField
 
-        nameFilters: ["Executable files (*.exe)"]
-        title: "Select an Executable"
+        nameFilters: [qsTr("Executable files (*.exe)")]
+        title: qsTr("Select an Executable")
 
         onAccepted: () => {
             associatedField.text =
@@ -50,7 +50,7 @@ Item {
         property string selectedValue: ""
         property var associatedField
 
-        title: "Select Executable"
+        title: qsTr("Select Executable")
         standardButtons: Dialog.Ok | Dialog.Cancel
         modal: true
 
@@ -126,7 +126,7 @@ Item {
         Button {
             Layout.alignment: Qt.AlignCenter
 
-            text: "New Entry"
+            text: qsTr("New Entry")
 
             onClicked: () => { _model.newEntry() }
         }
@@ -148,7 +148,7 @@ Item {
             // as well as enable/disable the entry and delete it.
             RowLayout {
                 Button {
-                    text: "Select Profile"
+                    text: qsTr("Select Profile")
                     onClicked: () => {
                         _profileFileDialog.associatedField = _profile
                         _profileFileDialog.open()
@@ -156,7 +156,7 @@ Item {
                 }
 
                 Button {
-                    text: "Browse Executable"
+                    text: qsTr("Browse Executable")
                     onClicked: () => {
                         _executableFileDialog.associatedField = _executable
                         _executableFileDialog.open()
@@ -164,7 +164,7 @@ Item {
                 }
 
                 Button {
-                    text: "Select Executable"
+                    text: qsTr("Select Executable")
 
                     onClicked: () => {
                         _executableSelectorDialog.associatedField = _executable
@@ -177,7 +177,7 @@ Item {
                 Switch {
                     id: _isEnabled
 
-                    text: checked ? "On" : "Off"
+                    text: checked ? qsTr("On") : qsTr("Off")
 
                     onToggled: () => { model.isEnabled = checked }
                 }

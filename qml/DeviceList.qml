@@ -62,7 +62,7 @@ Item {
         JGTabButton {
             id: _keyboardButton
 
-            text: "Keyboard"
+            text: qsTr("Keyboard")
             width: _metricKeyboard.width + 50
             checked: uiState.currentTab === "keyboard"
 
@@ -82,7 +82,7 @@ Item {
         JGTabButton {
             id: _logicalButton
 
-            text: "Logical Device"
+            text: qsTr("Logical Device")
             width: _metricIO.width + 50
             checked: uiState.currentTab === "logical"
 

@@ -27,7 +27,7 @@ Item {
 
         RowLayout {
             Label {
-                text: "Split axis at"
+                text: qsTr("Split axis at")
             }
 
             FloatSpinBox {
@@ -49,7 +49,7 @@ Item {
             id: _lowerHeader
 
             Label {
-                text: "Actions for the <b>lower / left</b> part of the split."
+                text: qsTr("Actions for the <b>lower / left</b> part of the split.")
             }
 
             Rectangle {
@@ -91,7 +91,7 @@ Item {
             id: _upperHeader
 
             Label {
-                text: "Actions for the <b>upper / right</b> part of the split."
+                text: qsTr("Actions for the <b>upper / right</b> part of the split.")
             }
 
             Rectangle {

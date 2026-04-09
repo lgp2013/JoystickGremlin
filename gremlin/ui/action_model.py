@@ -159,7 +159,7 @@ class ActionModel(QtCore.QObject):
         return self._action_behavior()
 
     @Property(type=list, notify=actionChanged)
-    def compatibleActions(self) -> List[str]:
+    def compatibleActions(self) -> List[dict[str, str]]:
         return self._compatible_actions()
 
     @Slot(str, result=list)
@@ -336,7 +336,7 @@ class ActionModel(QtCore.QObject):
         except GremlinError:
             signal.reloadUi.emit()
 
-    def _compatible_actions(self) -> List[str]:
+    def _compatible_actions(self) -> List[dict[str, str]]:
         """Returns the names of actions that are compatible within the current
         context.
 
@@ -364,7 +364,14 @@ class ActionModel(QtCore.QObject):
         filtered_names = [
             name for name in all_valid_action_names if name not in remove_names
         ]
-        return sorted(filtered_names, key=lambda x: sort_names.index(x))
+        sorted_names = sorted(filtered_names, key=lambda x: sort_names.index(x))
+        return [
+            {
+                "value": name,
+                "text": QtCore.QCoreApplication.translate("ActionNames", name)
+            }
+            for name in sorted_names
+        ]
 
     actionLabel = Property(
         str,

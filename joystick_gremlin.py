@@ -45,6 +45,7 @@ gremlin.util.setup_userprofile()
 import gremlin.audio_player
 import gremlin.config
 import gremlin.error
+import gremlin.i18n
 import gremlin.device_initialization
 import gremlin.event_handler
 import gremlin.mode_manager
@@ -381,6 +382,8 @@ class JoystickGremlinApp(QtWidgets.QApplication):
 
         # Change application wide font.
         self.setFont(QtGui.QFont("Segoe UI", 11))
+
+        gremlin.i18n.install_translator(self, Path(__file__).parent)
 
         # Load font used for icons.
         if QtGui.QFontDatabase.addApplicationFont(":/BootstrapIcons") < 0:

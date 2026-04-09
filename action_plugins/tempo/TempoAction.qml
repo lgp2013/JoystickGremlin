@@ -32,7 +32,7 @@ Item {
             Label {
                 id: _label
 
-                text: "Long-press threshold (sec)"
+                text: qsTr("Long-press threshold (sec)")
             }
             FloatSpinBox {
                 minValue: 0
@@ -48,10 +48,10 @@ Item {
             LayoutHorizontalSpacer {}
 
             Label {
-                text: "Activate on"
+                text: qsTr("Activate on")
             }
             RadioButton {
-                text: "press"
+                text: qsTr("press")
                 checked: _root.action.activateOn == "press"
 
                 onClicked: {
@@ -59,7 +59,7 @@ Item {
                 }
             }
             RadioButton {
-                text: "release"
+                text: qsTr("release")
                 checked: _root.action.activateOn == "release"
 
                 onClicked: {
@@ -73,7 +73,7 @@ Item {
         // +-------------------------------------------------------------------
         RowLayout {
             Label {
-                text: "Short press"
+                text: qsTr("Short press")
             }
 
             Rectangle {
@@ -110,7 +110,7 @@ Item {
         // +-------------------------------------------------------------------
         RowLayout {
             Label {
-                text: "Long press"
+                text: qsTr("Long press")
             }
 
             Rectangle {

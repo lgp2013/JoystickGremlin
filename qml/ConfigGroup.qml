@@ -61,7 +61,7 @@ ColumnLayout {
 
                     checked: model.value
 
-                    text: checked ? "On" : "Off"
+                    text: checked ? qsTr("On") : qsTr("Off")
 
                     onToggled: () => { model.value = checked }
                 }
@@ -130,7 +130,7 @@ ColumnLayout {
                         onTextChanged: () => { model.value = text }
                     }
                     Button {
-                        text: "Select"
+                        text: qsTr("Select")
                         onClicked: () => {
                             if (properties["is_folder"]) {
                                 _pathFolderDialog.associatedField = _pathVariable
@@ -148,7 +148,7 @@ ColumnLayout {
 
                     property var associatedField
 
-                    title: "Select a File"
+                    title: qsTr("Select a File")
 
                     onAccepted: () => {
                         associatedField.text =
@@ -161,7 +161,7 @@ ColumnLayout {
 
                     property var associatedField
 
-                    title: "Select a Folder"
+                    title: qsTr("Select a Folder")
 
                     onAccepted: () => {
                         associatedField.text =
@@ -213,10 +213,12 @@ ColumnLayout {
                     Layout.alignment: Qt.AlignRight
 
                     model: properties.valid_options
+                    textRole: "text"
+                    valueRole: "value"
 
                     implicitContentWidthPolicy: ComboBox.WidestText
 
-                    Component.onCompleted: () => { currentIndex = find(value) }
+                    Component.onCompleted: () => { currentIndex = indexOfValue(value) }
                     onActivated: () => { value = currentValue }
                 }
             }

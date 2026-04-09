@@ -17,7 +17,7 @@ Window {
     color: Style.background
     Universal.theme: Style.theme
 
-    title: "Device Information"
+    title: qsTr("Device Information")
 
     ColumnLayout {
         anchors.fill: parent
@@ -26,35 +26,35 @@ Window {
             Layout.preferredHeight: 50
 
             HeaderText {
-                text: "Name"
+                text: qsTr("Name")
                 Layout.fillWidth: true
             }
             HeaderText {
-                text: "Axes"
+                text: qsTr("Axes")
                 Layout.preferredWidth: 50
             }
             HeaderText {
-                text: "Buttons"
+                text: qsTr("Buttons")
                 Layout.preferredWidth: 75
             }
             HeaderText {
-                text: "Hats"
+                text: qsTr("Hats")
                 Layout.preferredWidth: 50
             }
             HeaderText {
-                text: "VID"
+                text: qsTr("VID")
                 Layout.preferredWidth: 100
             }
             HeaderText {
-                text: "PID"
+                text: qsTr("PID")
                 Layout.preferredWidth: 100
             }
             HeaderText {
-                text: "Joystick ID"
+                text: qsTr("Joystick ID")
                 Layout.preferredWidth: 100
             }
             HeaderText {
-                text: "Device GUID"
+                text: qsTr("Device GUID")
                 Layout.preferredWidth: 320
             }
         }

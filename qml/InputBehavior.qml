@@ -22,18 +22,18 @@ Item {
 
         Label {
             leftPadding: 20
-            text: "Treat as"
+            text: qsTr("Treat as")
         }
 
         RadioButton {
-            text: "Button"
+            text: qsTr("Button")
 
             checked: _root.inputBinding.behavior == "button"
             onClicked: () => { _root.inputBinding.behavior = "button" }
         }
 
         RadioButton {
-            text: "Axis"
+            text: qsTr("Axis")
 
             visible: _root.inputBinding.inputType == "axis"
 
@@ -42,7 +42,7 @@ Item {
         }
 
         RadioButton {
-            text: "Hat"
+            text: qsTr("Hat")
 
             visible: _root.inputBinding.inputType == "hat"
 

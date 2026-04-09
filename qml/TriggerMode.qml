@@ -24,20 +24,20 @@ Item {
         JGText {
             id: _description
 
-            text: "Activation"
+            text: qsTr("Activation")
             font.pointSize: 10
         }
 
         CompactSwitch {
             id: _press
 
-            text: "Press"
+            text: qsTr("Press")
             font: _description.font
         }
         CompactSwitch {
             id: _release
 
-            text: "Release"
+            text: qsTr("Release")
             font: _description.font
         }
     }

@@ -46,7 +46,7 @@ Item {
 
             sourceComponent: Row {
                 RadioButton {
-                    text: "Absolute"
+                    text: qsTr("Absolute")
                     checked: _root.action.axisMode == "absolute"
 
                     onCheckedChanged: {
@@ -55,7 +55,7 @@ Item {
                 }
                 RadioButton {
                     id: _relativeMode
-                    text: "Relative"
+                    text: qsTr("Relative")
                     checked: _root.action.axisMode == "relative"
 
                     onCheckedChanged: {
@@ -64,7 +64,7 @@ Item {
                 }
 
                 Label {
-                    text: "Scaling"
+                    text: qsTr("Scaling")
                     anchors.verticalCenter: parent.verticalCenter
                     visible: _relativeMode.checked
                 }
@@ -89,7 +89,7 @@ Item {
 
             sourceComponent: Row {
                 Switch {
-                    text: "Invert activation"
+                    text: qsTr("Invert activation")
                     checked: _root.action.buttonInverted
 
                     onToggled: function()

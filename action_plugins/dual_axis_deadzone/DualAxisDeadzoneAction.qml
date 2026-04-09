@@ -39,7 +39,7 @@ Item {
         modal: true
         focus: true
 
-        title: "Rename action"
+        title: qsTr("Rename action")
 
         Row {
             anchors.fill: parent
@@ -51,7 +51,7 @@ Item {
                 focus: true
 
                 text: action.label
-                placeholderText: "Action label"
+                placeholderText: qsTr("Action label")
 
                 onAccepted: () => { _dialog.accept() }
             }
@@ -73,7 +73,7 @@ Item {
             Label {
                 Layout.preferredWidth: 150
 
-                text: "Deadzone instance"
+                text: qsTr("Deadzone instance")
             }
 
             LabelValueComboBox {
@@ -108,11 +108,11 @@ Item {
             Label {
                 Layout.preferredWidth: 150
 
-                text: "Deadzone limits"
+                text: qsTr("Deadzone limits")
             }
 
             Label {
-                text: "Inner"
+                text: qsTr("Inner")
             }
 
             FloatSpinBox {
@@ -130,7 +130,7 @@ Item {
             Label {
                 Layout.leftMargin: 20
 
-                text: "Outer"
+                text: qsTr("Outer")
             }
 
             FloatSpinBox {
@@ -153,7 +153,7 @@ Item {
         RowLayout {
             // First axis selection
             Label {
-                text: "First axis: "
+                text: qsTr("First axis: ")
                 font.family: "Segoe UI"
                 font.weight: 600
             }
@@ -173,7 +173,7 @@ Item {
 
             // Second axis selection
             Label {
-                text: "Second axis: "
+                text: qsTr("Second axis: ")
                 font.family: "Segoe UI"
                 font.weight: 600
             }
@@ -192,7 +192,7 @@ Item {
         // +-------------------------------------------------------------------
         RowLayout {
             Label {
-                text: "First axis"
+                text: qsTr("First axis")
             }
 
             Rectangle {
@@ -229,7 +229,7 @@ Item {
         // +-------------------------------------------------------------------
         RowLayout {
             Label {
-                text: "Second axis"
+                text: qsTr("Second axis")
             }
 
             Rectangle {

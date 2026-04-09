@@ -36,7 +36,7 @@ ApplicationWindow {
     ErrorDialog {
         id: _errorDialog
 
-        title: "A fatal error ocurred"
+        title: qsTr("A fatal error ocurred")
     }
 
     MessageDialog {
@@ -49,12 +49,11 @@ ApplicationWindow {
     MessageDialog {
         id: _saveBeforeQuitDialog
 
-        title: "Save Changes?"
+        title: qsTr("Save Changes?")
         modality: Qt.ApplicationModal
         buttons: MessageDialog.Save | MessageDialog.Discard | MessageDialog.Cancel
 
-        text: "There are unsaved changes in the current profile, do you want " +
-              "to save them before quitting?"
+        text: qsTr("There are unsaved changes in the current profile, do you want to save them before quitting?")
 
         onButtonClicked: (button, role) => {
             switch (button) {
@@ -80,14 +79,14 @@ ApplicationWindow {
 
     FileDialog {
         id: _saveProfileFileDialog
-        title: "Please choose a file"
+        title: qsTr("Please choose a file")
 
         property bool quitAfterSave: false
 
-        acceptLabel: "Save"
+        acceptLabel: qsTr("Save")
         defaultSuffix: "xml"
         fileMode: FileDialog.SaveFile
-        nameFilters: ["Profile files (*.xml)"]
+        nameFilters: [qsTr("Profile files (*.xml)")]
 
         onAccepted: () => {
             backend.saveProfile(currentFile)
@@ -99,12 +98,12 @@ ApplicationWindow {
 
     FileDialog {
         id: _loadProfileFileDialog
-        title: "Please choose a file"
+        title: qsTr("Please choose a file")
 
-        acceptLabel: "Open"
+        acceptLabel: qsTr("Open")
         defaultSuffix: "xml"
         fileMode: FileDialog.OpenFile
-        nameFilters: ["Profile files (*.xml)"]
+        nameFilters: [qsTr("Profile files (*.xml)")]
 
         onAccepted: () => {
             backend.loadProfile(currentFile)
@@ -304,7 +303,7 @@ ApplicationWindow {
             Label {
                 Layout.rightMargin: 10
 
-                text: "Configuring mode"
+                text: qsTr("Configuring mode")
             }
 
             JGComboBox {
@@ -363,12 +362,12 @@ ApplicationWindow {
                 Layout.preferredWidth: 200
                 padding: 5
 
-                text: "<B>Status: </B>" +
+                text: qsTr("<B>Status: </B>") +
                     Helpers.selectText(
-                        backend.gremlinActive, "Active", "Not Running"
+                        backend.gremlinActive, qsTr("Active"), qsTr("Not Running")
                     ) +
                     Helpers.selectText(
-                        backend.gremlinActive & backend.gremlinPaused, " (Paused)", ""
+                        backend.gremlinActive & backend.gremlinPaused, qsTr(" (Paused)"), ""
                     )
             }
 
@@ -376,7 +375,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 padding: 5
 
-                text: "<B>Executing mode: </B>" + backend.currentMode
+                text: qsTr("<B>Executing mode: </B>") + backend.currentMode
             }
         }
     }
@@ -487,7 +486,7 @@ ApplicationWindow {
                 JGTabButton {
                     id: _scriptButton
 
-                    text: "Scripts"
+                    text: qsTr("Scripts")
                     width: _metricScripts.width + 50
                     checked: false
 
@@ -504,7 +503,7 @@ ApplicationWindow {
                 JGTabButton {
                     id: _profileSettingsButton
 
-                    text: "Settings"
+                    text: qsTr("Settings")
                     width: _metricProfileSettings.width + 50
                     checked: false
 

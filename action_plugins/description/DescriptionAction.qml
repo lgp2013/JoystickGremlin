@@ -27,7 +27,7 @@ Item {
 
             Layout.preferredWidth: 150
 
-            text: "Description"
+            text: qsTr("Description")
         }
 
         JGTextField {
@@ -35,7 +35,7 @@ Item {
 
             Layout.fillWidth: true
 
-            placeholderText: null !== action ? null : "Enter description"
+            placeholderText: null !== action ? null : qsTr("Enter description")
             text: action.description
             selectByMouse: true
 

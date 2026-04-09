@@ -594,7 +594,12 @@ class Backend(QtCore.QObject):
         """
         # Check if there exists a file with this path.
         if not os.path.isfile(fpath):
-            display_error(f"Unable to load profile '{fpath}', no such file.")
+            display_error(
+                QtCore.QCoreApplication.translate(
+                    "Backend",
+                    "Unable to load profile '{fpath}', no such file."
+                ).format(fpath=fpath)
+            )
             return
 
         # Disable the program if it is running when we're loading a
@@ -630,4 +635,10 @@ class Backend(QtCore.QObject):
             # Parsing the profile went wrong, stop loading and start with an
             # empty profile.
             self.newProfile()
-            display_error(f"Failed to load the profile {fpath}.", str(e))
+            display_error(
+                QtCore.QCoreApplication.translate(
+                    "Backend",
+                    "Failed to load the profile {fpath}."
+                ).format(fpath=fpath),
+                str(e)
+            )

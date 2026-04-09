@@ -36,10 +36,18 @@ Item {
 
             Layout.alignment: Qt.AlignTop
 
-            model: ["Switch", "Previous", "Unwind", "Cycle", "Temporary"]
+            model: [
+                { value: "Switch", text: qsTr("Switch") },
+                { value: "Previous", text: qsTr("Previous") },
+                { value: "Unwind", text: qsTr("Unwind") },
+                { value: "Cycle", text: qsTr("Cycle") },
+                { value: "Temporary", text: qsTr("Temporary") }
+            ]
+            textRole: "text"
+            valueRole: "value"
 
             Component.onCompleted: function() {
-                currentIndex = find(_root.action.changeType)
+                currentIndex = indexOfValue(_root.action.changeType)
             }
 
             onActivated: function() {
@@ -52,7 +60,7 @@ Item {
             visible: _changeType.currentValue === "Switch"
 
             Label {
-                text: "Switch to mode"
+                text: qsTr("Switch to mode")
             }
 
             JGComboBox {
@@ -91,7 +99,7 @@ Item {
             visible: _changeType.currentValue === "Previous"
 
             Label {
-                text: "Change to the previously active mode"
+                text: qsTr("Change to the previously active mode")
             }
         }
 
@@ -100,7 +108,7 @@ Item {
             visible: _changeType.currentValue === "Unwind"
 
             Label {
-                text: "Unwind one mode in the stack"
+                text: qsTr("Unwind one mode in the stack")
             }
         }
 
@@ -111,7 +119,7 @@ Item {
             Label {
                 Layout.alignment: Qt.AlignTop
 
-                text: "Cycle through these modes"
+                text: qsTr("Cycle through these modes")
             }
 
             ColumnLayout {
@@ -150,7 +158,7 @@ Item {
                 }
 
                 Button {
-                    text: "Add mode"
+                    text: qsTr("Add mode")
 
                     onClicked: function() {
                         _root.action.addTargetMode()
@@ -165,7 +173,7 @@ Item {
             visible: _changeType.currentValue === "Temporary"
 
             Label {
-                text: "Temporarily switch to mode"
+                text: qsTr("Temporarily switch to mode")
             }
 
             JGComboBox {

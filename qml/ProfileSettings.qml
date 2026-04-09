@@ -41,7 +41,7 @@ Item {
                 Layout.fillWidth: true
 
                 UIHeader {
-                    text: "Startup Mode"
+                    text: qsTr("Startup Mode")
                 }
 
                 RowLayout {
@@ -64,10 +64,7 @@ Item {
                     UIText {
                         Layout.fillWidth: true
 
-                        text: "Selection defines what mode Gremlin should start " +
-                            "in when the profile is activated. \"Use Heuristic\" " +
-                            "lets Gremlin decide, otherwise the selected mode is " +
-                            "used."
+                        text: qsTr("Selection defines what mode Gremlin should start in when the profile is activated. \"Use Heuristic\" lets Gremlin decide, otherwise the selected mode is used.")
                     }
                 }
 
@@ -77,7 +74,7 @@ Item {
                 Layout.fillWidth: true
 
                 UIHeader {
-                    text: "Macro Default Delay"
+                    text: qsTr("Macro Default Delay")
                 }
 
                 RowLayout {
@@ -101,8 +98,7 @@ Item {
                     UIText {
                         Layout.fillWidth: true
 
-                        text: "Delay inserted between macro actions in " +
-                            "seconds if no pause action is present."
+                        text: qsTr("Delay inserted between macro actions in seconds if no pause action is present.")
                     }
                 }
             }
@@ -111,7 +107,7 @@ Item {
                 Layout.fillWidth: true
 
                 UIHeader {
-                    text: "vJoy Behavior"
+                    text: qsTr("vJoy Behavior")
                 }
 
                 RowLayout {
@@ -125,11 +121,11 @@ Item {
 
                         delegate: RowLayout {
                             Label {
-                                text: `vJoy ${vid} is`
+                                text: qsTr("vJoy %1 is").arg(vid)
                                 Layout.preferredWidth: 75
                             }
                             Switch {
-                                text: checked ? "Input" : "Output"
+                                text: checked ? qsTr("Input") : qsTr("Output")
 
                                 checked: isInput
                                 onToggled: () => { isInput = checked }
@@ -140,13 +136,7 @@ Item {
                     UIText {
                         Layout.fillWidth: true
 
-                        text: "Determines if a vJoy devices are treated as an" +
-                            "input or output device by Gremlin. If treated " +
-                            "as an output device it can be used with the " +
-                            "'Map to vJoy' action. If treated as an input device" +
-                            "the vJoy device is treated as if it was any other " +
-                            "joystick. This is useful when multiple vJoy " +
-                            "devices exist and are used by different programs."
+                        text: qsTr("Determines if a vJoy devices are treated as an input or output device by Gremlin. If treated as an output device it can be used with the 'Map to vJoy' action. If treated as an input device the vJoy device is treated as if it was any other joystick. This is useful when multiple vJoy devices exist and are used by different programs.")
                     }
                 }
             }
@@ -155,7 +145,7 @@ Item {
                 Layout.fillWidth: true
 
                 UIHeader {
-                    text: "vJoy Initial Values"
+                    text: qsTr("vJoy Initial Values")
                 }
 
                 RowLayout {
@@ -172,7 +162,7 @@ Item {
                             Layout.fillWidth: true
 
                             Label {
-                                text: `vJoy ${vjoyId}`
+                                text: qsTr("vJoy %1").arg(vjoyId)
                             }
 
                             HorizontalDivider {
@@ -193,8 +183,7 @@ Item {
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignTop
 
-                        text: "Defines the initial values for vJoy axes to use " +
-                            "when a profile is activated."
+                        text: qsTr("Defines the initial values for vJoy axes to use when a profile is activated.")
                     }
                 }
             }

@@ -76,7 +76,7 @@ Item {
         width: Math.max(implicitWidth, 150)
 
         id: _button
-        text: "Record Inputs"
+        text: qsTr("Record Inputs")
 
         onClicked: () => { _popup.open() }
 
@@ -114,7 +114,7 @@ Item {
 
             RowLayout {
                 Label {
-                    text: "Waiting for user input. Hold ESC to abort."
+                    text: qsTr("Waiting for user input. Hold ESC to abort.")
                 }
                 Label {
                     text: _listener.currentInput

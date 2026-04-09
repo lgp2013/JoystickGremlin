@@ -125,7 +125,11 @@ Item {
             ComboBox {
                 Layout.preferredWidth: 200
 
-                model: ["Piecewise Linear", "Cubic Spline", "Cubic Bezier Spline"]
+                model: [
+                    qsTr("Piecewise Linear"),
+                    qsTr("Cubic Spline"),
+                    qsTr("Cubic Bezier Spline")
+                ]
 
                 Component.onCompleted: () => {
                     currentIndex = find(_root.action.curveType)
@@ -134,13 +138,13 @@ Item {
             }
 
             Button {
-                text: "Invert Curve"
+                text: qsTr("Invert Curve")
 
                 onClicked: () => { _root.action.invertCurve() }
             }
 
             CheckBox {
-                text: "Symmetric"
+                text: qsTr("Symmetric")
 
                 checked: _root.action.isSymmetric
 
@@ -238,7 +242,7 @@ Item {
                 Label {
                     Layout.preferredWidth: 30
 
-                    text: "X"
+                    text: qsTr("X")
                 }
 
                 FloatSpinBox {
@@ -255,7 +259,7 @@ Item {
                 }
 
                 Label {
-                    text: "Y"
+                    text: qsTr("Y")
                 }
 
                 FloatSpinBox {
@@ -274,7 +278,7 @@ Item {
         }
 
         Label {
-            text: "Deadzone"
+            text: qsTr("Deadzone")
         }
 
         RowLayout {

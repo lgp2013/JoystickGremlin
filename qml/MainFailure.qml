@@ -22,7 +22,7 @@ ApplicationWindow {
         Label {
             Layout.fillWidth: true
 
-            text: "An error occurred during startup:"
+            text: qsTr("An error occurred during startup:")
 
             font.bold: true
             font.pixelSize: 16

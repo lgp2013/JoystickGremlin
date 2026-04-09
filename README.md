@@ -26,6 +26,12 @@ Joystick Gremlin provides a graphical user interface which allows commonly perfo
 
 For a list of dependencies and an overview of how to install and use Gremlin take a look at the [Manual](https://whitemagic.github.io/JoystickGremlin/).
 
+## Localization
+
+This workspace includes a Simplified Chinese localization layer. See
+[TRANSLATION_ZH_CN.md](TRANSLATION_ZH_CN.md) for the file layout, update
+strategy, and packaging notes.
+
 
 ## Contributing
 

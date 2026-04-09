@@ -40,16 +40,18 @@ Item {
             id: _button
 
             Layout.leftMargin: 8
-            text: "Add Action"
+            text: qsTr("Add Action")
 
             onClicked: {
-                _root.callback(_combobox.currentText)
+                _root.callback(_combobox.currentValue)
             }
         }
 
         ComboBox {
             id: _combobox
 
+            textRole: "text"
+            valueRole: "value"
             implicitContentWidthPolicy: ComboBox.WidestText
         }
     }

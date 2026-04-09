@@ -14,6 +14,7 @@ for root, _, files in os.walk("action_plugins"):
 datas = [
     ("gfx", "gfx"),
     ("qml", "qml"),
+    ("translations", "translations"),
     ("device_db.json", "."),
     ("version.json", ".")
 ]

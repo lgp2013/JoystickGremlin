@@ -25,10 +25,10 @@ Item {
 
         RowLayout {
             Label {
-                text: "Button mode"
+                text: qsTr("Button mode")
             }
             RadioButton {
-                text: "4 way"
+                text: qsTr("4 way")
                 checked: _root.action.buttonCount == 4
 
                 onClicked: {
@@ -36,7 +36,7 @@ Item {
                 }
             }
             RadioButton {
-                text: "8 way"
+                text: qsTr("8 way")
                 checked: _root.action.buttonCount == 8
 
                 onClicked: {

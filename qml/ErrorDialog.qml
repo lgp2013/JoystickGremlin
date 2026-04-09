@@ -72,7 +72,7 @@ Popup {
         Button {
             Layout.alignment: Qt.AlignRight
 
-            text: "OK"
+            text: qsTr("OK")
 
             onClicked: () => { root.close() }
         }

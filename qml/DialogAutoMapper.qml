@@ -19,7 +19,7 @@ Window {
     color: Style.background
     Universal.theme: Style.theme
 
-    title: "Auto Mapper"
+    title: qsTr("Auto Mapper")
 
     DeviceListModel {
         id: _physicalDevices
@@ -51,7 +51,7 @@ Window {
 
                 RowLayout {
                     Label {
-                        text: "Physical Devices"
+                        text: qsTr("Physical Devices")
                     }
 
                     LayoutHorizontalSpacer {
@@ -86,7 +86,7 @@ Window {
 
                 RowLayout {
                     Label {
-                        text: "vJoy Devices"
+                        text: qsTr("vJoy Devices")
                     }
 
                     LayoutHorizontalSpacer {
@@ -118,7 +118,7 @@ Window {
 
         RowLayout {
             Label {
-                text: "Select Mode"
+                text: qsTr("Select Mode")
             }
 
             ComboBox {
@@ -134,7 +134,7 @@ Window {
             Switch {
                 id: _overwriteNonEmpty
 
-                text: "Overwrite non-empty physical inputs"
+                text: qsTr("Overwrite non-empty physical inputs")
 
                 onToggled: () => { overwriteNonEmpty = checked }
             }
@@ -142,7 +142,7 @@ Window {
             Switch {
                 id: _repeatDevices
 
-                text: "Repeat vJoy devices"
+                text: qsTr("Repeat vJoy devices")
 
                 onToggled: () => { repeatVJoy = checked }
             }
@@ -152,7 +152,7 @@ Window {
             Layout.topMargin: 10
 
             Button {
-                text: "Create 1:1 mappings"
+                text: qsTr("Create 1:1 mappings")
 
                 onClicked: () => {
                     _statusMessage.text = tools.createMappings(
@@ -175,7 +175,7 @@ Window {
                 Layout.leftMargin: 10
                 Layout.rightMargin: 10
 
-                text: "Select devices, options and then click the button."
+                text: qsTr("Select devices, options and then click the button.")
             }
 
             IconButton {
@@ -183,12 +183,7 @@ Window {
                 font.pixelSize: 24
 
                 ToolTip {
-                    text: "- Select mode to create bindings in.
-- Select source physical devices and target vJoy devices.
-- Click \"Create 1:1 mappings\" button.
-
-Overwrite non-empty: Replaces existing mappings in the profile.
-Repeat vJoy: Cycles through vJoy inputs, if needed to map all physical inputs."
+                    text: qsTr("- Select mode to create bindings in.\n- Select source physical devices and target vJoy devices.\n- Click \"Create 1:1 mappings\" button.\n\nOverwrite non-empty: Replaces existing mappings in the profile.\nRepeat vJoy: Cycles through vJoy inputs, if needed to map all physical inputs.")
 
                     visible: parent.hovered
                     delay: 500

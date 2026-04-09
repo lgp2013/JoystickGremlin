@@ -41,6 +41,15 @@ QML_IMPORT_NAME = "Gremlin.Config"
 QML_IMPORT_MAJOR_VERSION = 1
 
 
+def _tr(context: str, text: str) -> str:
+    return QtCore.QCoreApplication.translate(context, text)
+
+
+def _humanize_option_name(name: str) -> str:
+    name = re.sub(r"^[0-9]+-", "", name)
+    return re.sub(r"[_-]+", " ", name).capitalize()
+
+
 @QtQml.QmlElement
 class ConfigSectionModel(QtCore.QAbstractListModel):
 
@@ -74,7 +83,7 @@ class ConfigSectionModel(QtCore.QAbstractListModel):
 
         match self.roles[role]:
             case "name":
-                return sections[index.row()]
+                return _tr("OptionSections", sections[index.row()])
             case "groupModel":
                 return ConfigGroupModel(sections[index.row()])
 
@@ -141,7 +150,7 @@ class ConfigGroupModel(QtCore.QAbstractListModel):
                         self._section_name, groups[index.row()]
                     )
                 case "groupName":
-                    return groups[index.row()]
+                    return _tr("OptionGroups", groups[index.row()])
         else:
             return None
 
@@ -199,8 +208,7 @@ class ConfigEntryModel(QtCore.QAbstractListModel):
 
             name = entries[index.row()]
             if role_name == "name":
-                name = re.sub(r"^[0-9]+-", "", name)
-                return re.sub(r"[_-]+", " ", name).capitalize()
+                return _tr("OptionEntries", _humanize_option_name(name))
             # Separate handling of config and meta option entries.
             if self._config.exists(self._section_name, self._group_name, name):
                 key = [self._section_name, self._group_name, entries[index.row()]]
@@ -209,13 +217,28 @@ class ConfigEntryModel(QtCore.QAbstractListModel):
                 if role_name == "value":
                     if self._config.data_type(*key) == PropertyType.Path:
                         value = str(value)
+                elif role_name == "description":
+                    value = _tr("OptionDescriptions", value)
+                elif role_name == "properties":
+                    if self._config.data_type(*key) == PropertyType.Selection:
+                        value = dict(value)
+                        value["valid_options"] = [
+                            {
+                                "value": entry,
+                                "text": _tr("OptionSelectionValues", entry)
+                            }
+                            for entry in value["valid_options"]
+                        ]
                 if isinstance(value, PropertyType):
                     value = PropertyType.to_string(value)
             else:
                 match role_name:
                     case "description":
-                        value = self._option.description(
-                            self._section_name, self._group_name, name
+                        value = _tr(
+                            "OptionDescriptions",
+                            self._option.description(
+                                self._section_name, self._group_name, name
+                            )
                         )
                     case "value":
                         value = self._option.qml_widget(
@@ -306,7 +329,7 @@ class ActionSequenceOrdering(QtCore.QAbstractListModel, BaseMetaConfigOptionWidg
             data = self._config.value(*self._cfg_key)[index.row()]
             match self.roles[role]:
                 case "name":
-                    return data[0]
+                    return _tr("ActionNames", data[0])
                 case "visible":
                     return data[1]
                 case "index":

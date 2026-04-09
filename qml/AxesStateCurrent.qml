@@ -78,7 +78,7 @@ Item {
                     Label {
                         Layout.alignment: Qt.AlignHCenter
 
-                        text: "Axis " +  identifier
+                        text: qsTr("Axis ") + identifier
                     }
                     BetterProgressBar {
                         Layout.fillHeight: true
