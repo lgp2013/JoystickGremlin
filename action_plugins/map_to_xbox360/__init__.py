@@ -70,6 +70,7 @@ class MapToXbox360Functor(AbstractFunctor):
     def __init__(self, action: MapToXbox360Data) -> None:
         super().__init__(action)
         self._manager = XboxOutputManager()
+        self._manager.ensure_controller(action.controller_id)
 
     @override
     def __call__(

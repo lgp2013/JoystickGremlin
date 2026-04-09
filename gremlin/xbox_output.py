@@ -37,6 +37,11 @@ class XboxOutputManager(metaclass=common.SingletonMetaclass):
     def is_available() -> bool:
         return vg is not None
 
+    def ensure_controller(self, controller_id: int) -> int:
+        """Ensures that the requested virtual controller exists."""
+        entry = self._get_gamepad(controller_id)
+        return entry.gamepad.get_index()
+
     def reset(self) -> None:
         for entry in self._devices.values():
             with entry.lock:
